@@ -85,32 +85,15 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Disabled
 public abstract class R2_skyStoneClass extends R_2_OpMode{
 
-    // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
-    // 1) Camera Source.  Valid choices are:  BACK (behind screen) or FRONT (selfie side)
-    // 2) Phone Orientation. Choices are: PHONE_IS_PORTRAIT = true (portrait) or PHONE_IS_PORTRAIT = false (landscape)
-    //
-    // NOTE: If you are running on a CONTROL HUB, with only one USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
-    //
+
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
 
-    /*
-     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
-     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
-     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
-     *
-     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-     * random data. As an example, here is a example of a fragment of a valid key:
-     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-     * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the double quotes.
-     */
+
     private static final String VUFORIA_KEY =
             "ASGFjiL/////AAABmaZPknqZXkmmtTGwg+uEgu2C3gZHn4ty9G5tCQODMMEmOGMJ//A61QXRzXTQ325wH/0YePAvHwhvQi3WvEl7/uo7TXACAxQck03MAZt/TLhbD19Q39Op9sr1cMaNNbBNV8EmjqvuP9zs8FvgYKXK9s/llYal1b9PAHbyQcA2pFBX89JTcP+gkYR8ZtN6Ce5GuuKfdeMM+x4BIuIDyFqO/cAbQ2YYqGbhssjM5Qh3gZyFDtJzFm4jnY33EI1wFRfKguwU5W58i9TLty4S/OfSUV6B7n+6iOfJgYrG6d26sbwkklAlH2AhNuRtNbTjworCq2IFczGeJwSC+IsFcy70pE4L2bhTSyogln8q0RKulZ/r ";
 
-    // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
-    // We will define some constants and conversions here
+
     private static final float mmPerInch        = 25.4f;
     private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
@@ -137,11 +120,7 @@ public abstract class R2_skyStoneClass extends R_2_OpMode{
     private float phoneZRotate    = 0;
 
 
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
-         * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
-         */
+
         public void scan(){
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
             VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -154,8 +133,7 @@ public abstract class R2_skyStoneClass extends R_2_OpMode{
             //  Instantiate the Vuforia engine
             vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
-            // Load the data sets for the trackable objects. These particular data
-            // sets are stored in the 'assets' part of our application.
+
             VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
             VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
@@ -189,27 +167,7 @@ public abstract class R2_skyStoneClass extends R_2_OpMode{
             List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
             allTrackables.addAll(targetsSkyStone);
 
-            /**
-             * In order for localization to work, we need to tell the system where each target is on the field, and
-             * where the phone resides on the robot.  These specifications are in the form of <em>transformation matrices.</em>
-             * Transformation matrices are a central, important concept in the math here involved in localization.
-             * See <a href="https://en.wikipedia.org/wiki/Transformation_matrix">Transformation Matrix</a>
-             * for detailed information. Commonly, you'll encounter transformation matrices as instances
-             * of the {@link OpenGLMatrix} class.
-             *
-             * If you are standing in the Red Alliance Station looking towards the center of the field,
-             *     - The X axis runs from your left to the right. (positive from the center to the right)
-             *     - The Y axis runs from the Red Alliance Station towards the other side of the field
-             *       where the Blue Alliance Station is. (Positive is from the center, towards the BlueAlliance station)
-             *     - The Z axis runs from the floor, upwards towards the ceiling.  (Positive is above the floor)
-             *
-             * Before being transformed, each target image is conceptually located at the origin of the field's
-             *  coordinate system (the center of the field), facing up.
-             */
 
-            // Set the position of the Stone Target.  Since it's not fixed in position, assume it's at the field origin.
-            // Rotated it to to face forward, and raised it to sit on the ground correctly.
-            // This can be used for generic target-centric approach algorithms
             stoneTarget.setLocation(OpenGLMatrix
                     .translation(0, 0, stoneZ)
                     .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
@@ -264,19 +222,6 @@ public abstract class R2_skyStoneClass extends R_2_OpMode{
                     .translation(halfField, -quadField, mmTargetHeight)
                     .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-            //
-            // Create a transformation matrix describing where the phone is on the robot.
-            //
-            // NOTE !!!!  It's very important that you turn OFF your phone's Auto-Screen-Rotation option.
-            // Lock it into Portrait for these numbers to work.
-            //
-            // Info:  The coordinate frame for the robot looks the same as the field.
-            // The robot's "forward" direction is facing out along X axis, with the LEFT side facing out along the Y axis.
-            // Z is UP on the robot.  This equates to a bearing angle of Zero degrees.
-            //
-            // The phone starts out lying flat, with the screen facing Up and with the physical top of the phone
-            // pointing to the LEFT side of the Robot.
-            // The two examples below assume that the camera is facing forward out the front of the robot.
 
             // We need to rotate the camera around it's long axis to bring the correct camera forward.
             if (CAMERA_CHOICE == BACK) {
@@ -343,7 +288,8 @@ public abstract class R2_skyStoneClass extends R_2_OpMode{
                     }
                 }
 // Provide feedback as to where the robot is located (if we know).
-                String positionSkystone = "";
+
+               String positionSkystone = "";
                 if (targetVisible) {
                     // express position (translation) of robot in inches.
                     VectorF translation = lastLocation.getTranslation();
@@ -354,8 +300,10 @@ public abstract class R2_skyStoneClass extends R_2_OpMode{
 
                     if (yPosition < -70) {
                         positionSkystone = "Left";
+
                     } else if (yPosition > 20) {
                         positionSkystone = "Right";
+
                     } else {
                         positionSkystone = "center";
 
