@@ -93,6 +93,8 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
         if (opModeIsActive()) {
             getToPosition();
             getSkyStone();
+            getSkyStonePush();
+
         }
     }
 
@@ -329,6 +331,14 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
         }
 
 
+    }
+    public void getSkyStonePush(){
+        strafeRight(2,6);
+        driveStraight(2,4);
+        rotate(2,-16);
+        driveStraight(2, 16);
+        rotate(2,-16);
+        driveStraight(2,16);
     }
 }
 
