@@ -65,7 +65,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
     private boolean leftBlock = false;
     private boolean rightBlock = false;
     private boolean centerBlock = false;
-
+    private static final float timeIsRuning = System.currentTimeMillis();
     protected ElapsedTime runtime = new ElapsedTime();
     private static final float thetimeoftime = System.currentTimeMillis();
 
@@ -117,7 +117,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
 
     public void getSkyStone() {
 
-    scan(30000);
+    scan(5000);
 
         if (leftBlock) {
             strafeRight(2, 6);
@@ -153,7 +153,8 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
 
         {
             long startTime =System.currentTimeMillis();
-            long currentTime =startTime;
+            long currentTime =System.currentTimeMillis();
+
             telemetry.addData("Time1",startTime);
             telemetry.update();
 
@@ -301,7 +302,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
                 // Tap the preview window to receive a fresh image.
 
                 targetsSkyStone.activate();
-                while (!isStopRequested()) {
+                while (System.currentTimeMillis()<thetimeoftime+time) {
 
                     // check all the trackable targets to see which one (if any) is visible.
                     targetVisible = false;
@@ -361,8 +362,10 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
                     //end_time = System.currentTimeMillis();
                     //   time_difference=end_time-start_Time;
                     // Disable Tracking when we are done;
-                    targetsSkyStone.deactivate();
+telemetry.addLine("Tell me why this isn't working");
+telemetry.update();
                 }
+            targetsSkyStone.deactivate();
             }
             telemetry.addData("Timedone",centerBlock);
             telemetry.update();

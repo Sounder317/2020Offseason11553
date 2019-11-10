@@ -23,7 +23,7 @@ public abstract class R_2_OpMode extends LinearOpMode
     protected DcMotor backRightMotor;
     protected DcMotor leftArmMotor;
     protected DcMotor rightArmMotor;
-    // protected DcMotor extensionMotor;
+    protected DcMotor extensionMotor;
 
     // protected CRServo armServo;
 
@@ -48,7 +48,7 @@ public abstract class R_2_OpMode extends LinearOpMode
         leftArmMotor = hardwareMap.get(DcMotor.class, "leftArmMotor");
         rightArmMotor = hardwareMap.get(DcMotor.class, "rightArmMotor");
 
-        //extensionMotor = hardwareMap.get(DcMotor.class, "extensionMotor");
+        extensionMotor = hardwareMap.get(DcMotor.class, "extensionMotor");
 
         //    armServo = hardwareMap.get(CRServo.class, "armServo");
 
@@ -57,13 +57,13 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         // set the direction of the right motors so they match the left motors
         backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //    rightArmMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //  leftArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftArmMotor.setPower(0.0);
         rightArmMotor.setPower(0.0);
