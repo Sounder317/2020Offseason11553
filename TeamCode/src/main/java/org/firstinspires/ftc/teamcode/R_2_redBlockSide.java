@@ -33,7 +33,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="R_2_redBlockSide", group="zzz")
 public class R_2_redBlockSide extends R2_skyStoneClass {
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = false;
+    private static final boolean PHONE_IS_PORTRAIT = true;
 
     private static final String VUFORIA_KEY =
             "ASGFjiL/////AAABmaZPknqZXkmmtTGwg+uEgu2C3gZHn4ty9G5tCQODMMEmOGMJ//A61QXRzXTQ325wH/0YePAvHwhvQi3WvEl7/uo7TXACAxQck03MAZt/TLhbD19Q39Op9sr1cMaNNbBNV8EmjqvuP9zs8FvgYKXK9s/llYal1b9PAHbyQcA2pFBX89JTcP+gkYR8ZtN6Ce5GuuKfdeMM+x4BIuIDyFqO/cAbQ2YYqGbhssjM5Qh3gZyFDtJzFm4jnY33EI1wFRfKguwU5W58i9TLty4S/OfSUV6B7n+6iOfJgYrG6d26sbwkklAlH2AhNuRtNbTjworCq2IFczGeJwSC+IsFcy70pE4L2bhTSyogln8q0RKulZ/r ";
@@ -117,23 +117,26 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
 
     public void getSkyStone() {
 
-    scan(5000);
+    scan(7000);
 
         if (leftBlock) {
             strafeRight(2, 6);
             driveStraight(2, 8);
             rotate(2, 16);
         } else if (rightBlock) {
+
             strafeRight(2, 6);
             driveStraight(2, 8);
             rotate(2, 16);
         } else if (centerBlock) {
+
             strafeRight(1, 4);
             driveStraight(1, 4);
             rotate(2, 16);
 
         }
         else{
+            telemetry.addLine("lol");
             strafeRight(1, 4);
             driveStraight(1, 4);
             rotate(2, 16);
@@ -302,7 +305,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
                 // Tap the preview window to receive a fresh image.
 
                 targetsSkyStone.activate();
-                while (System.currentTimeMillis()<thetimeoftime+time) {
+                while (System.currentTimeMillis()<startTime+time) {
 
                     // check all the trackable targets to see which one (if any) is visible.
                     targetVisible = false;
@@ -335,13 +338,13 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
                         telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                                 translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
-                        double yPosition = translation.get(1);
+                        double xPosition = translation.get(0);
 
-                        if (yPosition < -70) {
+                        if (xPosition < -70) {
                             positionSkystone = "Left";
                             leftBlock = true;
 
-                        } else if (yPosition > 20) {
+                        } else if (xPosition > 20) {
                             positionSkystone = "Right";
                             rightBlock = true;
 
@@ -362,12 +365,11 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
                     //end_time = System.currentTimeMillis();
                     //   time_difference=end_time-start_Time;
                     // Disable Tracking when we are done;
-telemetry.addLine("Tell me why this isn't working");
-telemetry.update();
+                    targetsSkyStone.deactivate();
                 }
-            targetsSkyStone.deactivate();
+
             }
-            telemetry.addData("Timedone",centerBlock);
+            telemetry.addLine("Timedone");
             telemetry.update();
         }
     }

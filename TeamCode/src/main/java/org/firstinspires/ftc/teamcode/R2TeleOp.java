@@ -51,13 +51,44 @@ public class R2TeleOp extends R_2_OpMode {
             // right stick steering
             steering = this.gamepad1.left_stick_x;
 
-            // drive formula 
+            // drive formula
             leftPower = motorPower + steering;
             rightPower = motorPower - steering;
 
             //if the a button is pressed then toggle if you are in slowMode
             if (this.gamepad1.a) {
                 slowMode = !slowMode;
+            }
+
+            if (this.gamepad1.right_stick_y>0.1){
+                motorPower = this.gamepad1.right_stick_y;
+                steering = this.gamepad2.right_stick_x;
+                leftPower = motorPower-steering;
+                rightPower =motorPower-steering;
+                telemetry.addLine("Strafe on");
+            }
+            else if (this.gamepad1.right_stick_y<-0.1){
+                motorPower = this.gamepad1.right_stick_y;
+                steering = this.gamepad2.right_stick_x;
+                leftPower = motorPower-steering;
+                rightPower =motorPower-steering;
+            }
+            else if (this.gamepad1.right_stick_x>0.1){
+                motorPower = this.gamepad1.right_stick_y;
+                steering = this.gamepad2.right_stick_x;
+                leftPower = motorPower-steering;
+                rightPower =motorPower-steering;
+                telemetry.addLine("Strafe on");
+            }
+            else if (this.gamepad1.right_stick_x<-0.1){
+                motorPower = this.gamepad1.right_stick_y;
+                steering = this.gamepad2.right_stick_x;
+                leftPower = motorPower-steering;
+                rightPower =motorPower-steering;
+                telemetry.addLine("Strafe on");
+            }
+            else{
+                telemetry.addLine("Strafe off");
             }
 //            if (this.gamepad1.b)
 //            {
@@ -74,38 +105,39 @@ public class R2TeleOp extends R_2_OpMode {
             // Move arm up and down
             if (this.gamepad1.left_bumper) {
                 // move arm up
-                leftArmMotor.setPower(-1);
-                rightArmMotor.setPower(1);
+                leftArmMotor.setPower(-2);
+                rightArmMotor.setPower(2);
             } else if (this.gamepad1.right_bumper) {
                 // move arm down
-                rightArmMotor.setPower(-1);
-                leftArmMotor.setPower(1);
-            } else if (this.gamepad2.left_bumper) {
+                rightArmMotor.setPower(-2);
+                leftArmMotor.setPower(2);
+            } //else if (this.gamepad2.left_bumper) {
                 // move arm up
-                leftArmMotor.setPower(1);
-                rightArmMotor.setPower(-1);
-            } else if (this.gamepad2.right_bumper) {
+              //  leftArmMotor.setPower(2);
+             //   rightArmMotor.setPower(-2);
+           // } //else if (this.gamepad2.right_bumper) {
                 //  move arm down
-                rightArmMotor.setPower(1);
-                leftArmMotor.setPower(-1);
-            } else {
+              //  rightArmMotor.setPower(2);
+                //leftArmMotor.setPower(-2);
+           // }
+        else {
                 rightArmMotor.setPower(0.0);
                 leftArmMotor.setPower(0.0);
             }
 
-            //     if (this.gamepad2.y)
-            //{
-            //        loadBucket();
-            // }
+                if (this.gamepad2.right_trigger>0)
+            {
+                    loadBucket();
+             }
 
-            //   else if (this.gamepad2.x)
-            //{
-            //      unloadBucket();
-            //    }
-            //  else
-            //{
-            // stopServo();   
-            //    }
+               else if (this.gamepad2.left_trigger>0)
+            {
+                  unloadBucket();
+               }
+             else
+            {
+             stopServo();
+               }
 
             // make sure we dont make the power too low/high
             leftPower = Range.clip(leftPower, -1, 1);
@@ -143,6 +175,15 @@ public class R2TeleOp extends R_2_OpMode {
                 {
                  extensionMotor.setPower(0);
                     }
+                if(this.gamepad2.right_bumper){
+                extendArm();
+                }
+               else if(this.gamepad2.left_bumper) {
+                retractArm();
+                }
+               else{
+                   stopExtension();
+                }
 
                 //    telemetry.addData("Left Arm is ", leftArmMotor.getCurrentPosition());
                 //  telemetry.addData("Right Arm is ", rightArmMotor.getCurrentPosition());
@@ -150,7 +191,7 @@ public class R2TeleOp extends R_2_OpMode {
                 telemetry.addData("Left Front is ", frontLeftMotor.getCurrentPosition());
                 telemetry.addData("Right Front is ", frontRightMotor.getCurrentPosition());
 
-                //telemetry.addData("Arm Servo", armServo.getPower());
+                telemetry.addData("Arm Servo", armServo.getPower());
                 telemetry.addData("Slow Mode", slowMode);
                 telemetry.addData("Loop Count", loopCount);
                 telemetry.update();

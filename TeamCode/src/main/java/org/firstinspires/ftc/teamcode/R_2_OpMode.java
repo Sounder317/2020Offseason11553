@@ -25,11 +25,12 @@ public abstract class R_2_OpMode extends LinearOpMode
     protected DcMotor rightArmMotor;
     protected DcMotor extensionMotor;
 
-    // protected CRServo armServo;
+     protected CRServo armServo;
+     protected CRServo extentionSevro;
 
     protected int loopCount = 0;                // counter for how long opMode has run
     protected boolean slowMode = false;         // whether to be in slow or precise mode
-
+    protected boolean lol = false;
     // NeverRest40 is 1120 and the ratio is 1.75
     protected static final int TICKS_PER_ROTATION = 640;
 
@@ -50,13 +51,14 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         extensionMotor = hardwareMap.get(DcMotor.class, "extensionMotor");
 
-        //    armServo = hardwareMap.get(CRServo.class, "armServo");
+           armServo = hardwareMap.get(CRServo.class, "armServo");
+           extentionSevro = hardwareMap.get(CRServo.class, "extensionServo");
 
         setDriveMotorsMode(runMode);
         //    setArmMotorsMode(runMode);
 
         // set the direction of the right motors so they match the left motors
-        backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
         frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //    rightArmMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -306,21 +308,24 @@ public abstract class R_2_OpMode extends LinearOpMode
 
     }
 
-    // public void loadBucket()
-    //{
-    //   armServo.setPower(0.5);
-    //}
+     public void loadBucket()
+    {
+       armServo.setPower(0.5);
+    }
 
-    //public void unloadBucket()
-    //{
-    //  armServo.setPower(-0.5);
-    //}
+    public void unloadBucket()
+    {
+      armServo.setPower(-0.5);
+    }
 
-    // public void stopServo()
-    //{
-    //  armServo.setPower(0.0);
+    public void stopServo(){armServo.setPower(0);}
 
-    //}
+    public void extendArm() {extentionSevro.setPower(1);}
+
+    public void retractArm() {extentionSevro.setPower(-1);}
+
+    public void stopExtension() {extentionSevro.setPower(0);}
+
     public void scanSkyStones()
     {
 
