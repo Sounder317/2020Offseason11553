@@ -26,7 +26,11 @@ public abstract class R_2_OpMode extends LinearOpMode
     protected DcMotor extensionMotor;
 
      protected CRServo armServo;
-     protected CRServo extentionSevro;
+     protected CRServo extentionServo;
+
+     protected Servo foundationServo1;
+     protected Servo foundationServo2;
+
 
     protected int loopCount = 0;                // counter for how long opMode has run
     protected boolean slowMode = false;         // whether to be in slow or precise mode
@@ -51,8 +55,11 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         extensionMotor = hardwareMap.get(DcMotor.class, "extensionMotor");
 
-           armServo = hardwareMap.get(CRServo.class, "armServo");
-           extentionSevro = hardwareMap.get(CRServo.class, "extensionServo");
+        armServo = hardwareMap.get(CRServo.class, "armServo");
+        extentionServo = hardwareMap.get(CRServo.class, "extensionServo");
+
+        foundationServo1 = hardwareMap.get(Servo.class, "foundationServo1");
+        foundationServo2 = hardwareMap.get(Servo.class, "foundationServo2");
 
         setDriveMotorsMode(runMode);
         //    setArmMotorsMode(runMode);
@@ -320,11 +327,22 @@ public abstract class R_2_OpMode extends LinearOpMode
 
     public void stopServo(){armServo.setPower(0);}
 
-    public void extendArm() {extentionSevro.setPower(1);}
+    public void extendArm() {extentionServo.setPower(1);}
 
-    public void retractArm() {extentionSevro.setPower(-1);}
+    public void retractArm() {extentionServo.setPower(-1);}
 
-    public void stopExtension() {extentionSevro.setPower(0);}
+    public void stopExtension() {extentionServo.setPower(0);}
+
+    public void grabFoundation() {
+    foundationServo1.setPosition(-1);
+    foundationServo2.setPosition(-1);
+}
+
+    public void releaseFoundation() {
+        foundationServo1.setPosition(1);
+        foundationServo2.setPosition(1);
+    }
+
 
     public void scanSkyStones()
     {
