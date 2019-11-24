@@ -35,20 +35,26 @@ public class R2_PullFoundation extends R_2_OpMode
                 /* Move 12 inches forward */
                 driveStraight(.5, 12 );
 
-                //beginning of straiff to the left assuming 12 inches as encoderDrivingTarget is already set to 12
-                strafeLeft( 0.5,12);
+                //beginning of strafe to the left assuming 12 inches as encoderDrivingTarget is already set to 12
+                strafeLeft( 0.5,30);
 
-                /* Move 12 inches forward */
-                driveStraight(.5, 12 );
+                /* Move 15 inches forward */
+                driveStraight(.5, 15 );
 
                 //grabbing foundation using servo
                 grabFoundation();
 
-                // beginning of moving back assuming 20 inches is needed
-                driveStraight(-.5, 20 );
+                // beginning of moving back, 27 inches is needed
+                driveStraight(-.5, 27 );
 
                 //releasing foundation using servos
                 releaseFoundation();
+
+                //rest for 19 seconds
+                sleep(19000);
+
+                //move right for parking
+                strafeRight(.5, 35);
 
 
         }
