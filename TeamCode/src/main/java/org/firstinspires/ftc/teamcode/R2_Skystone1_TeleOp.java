@@ -20,7 +20,7 @@ import android.graphics.Color;
 import android.view.View;
 
 @TeleOp
-public class R2TeleOp extends R_2_OpMode
+public class R2_Skystone1_TeleOp extends R_2_OpMode
 {
     //@Override
     public void runOpMode() {
@@ -52,11 +52,11 @@ public class R2TeleOp extends R_2_OpMode
             motorPower = this.gamepad1.left_stick_y;
 
             // right stick steering
-            steering = this.gamepad1.left_stick_x;
+            steering = this.gamepad1.right_stick_x;
 
             // drive formula
-            leftPower = motorPower - steering;
-            rightPower = motorPower + steering;
+           // leftPower = motorPower - steering;
+           // rightPower = motorPower + steering;
 
             //if the a button is pressed then toggle if you are in slowMode
             if (this.gamepad1.a)
@@ -71,8 +71,8 @@ public class R2TeleOp extends R_2_OpMode
 
             if (slowMode)
             {
-                leftPower = leftPower/2.0;
-                rightPower = rightPower/2.0;
+                motorPower = motorPower/2.0;
+                steering = steering/2.0;
             }
 
             //armpower
@@ -125,13 +125,24 @@ public class R2TeleOp extends R_2_OpMode
             leftPower = Range.clip(leftPower, -1, 1);
             rightPower = Range.clip(rightPower, -1, 1);
 
-            frontLeftMotor.setPower(leftPower);
-            backLeftMotor.setPower(leftPower);
+            frontLeftMotor.setPower(steering);
+            backLeftMotor.setPower(steering);
 
-            frontRightMotor.setPower(rightPower);
-            backRightMotor.setPower(rightPower);
+            frontRightMotor.setPower(-steering);
+            backRightMotor.setPower(-steering);
 
-            if (this.gamepad1.dpad_left)
+            frontLeftMotor.setPower(this.gamepad1.left_stick_y);
+            backLeftMotor.setPower(this.gamepad1.left_stick_y);
+
+            frontRightMotor.setPower(this.gamepad1.left_stick_y);
+            backRightMotor.setPower(this.gamepad1.left_stick_y);
+
+            frontLeftMotor.setPower(this.gamepad1.left_stick_x);
+            frontRightMotor.setPower(-this.gamepad1.left_stick_x);
+            backLeftMotor.setPower(-this.gamepad1.left_stick_x);
+            backRightMotor.setPower(this.gamepad1.left_stick_x);
+
+        /*    if (this.gamepad1.dpad_left)
             {
                 motorPower = 1.0;
 
@@ -147,7 +158,7 @@ public class R2TeleOp extends R_2_OpMode
                 frontLeftMotor.setPower(-motorPower);
                 frontRightMotor.setPower(motorPower);
                 backLeftMotor.setPower(motorPower);
-                backRightMotor.setPower(-motorPower);
+                backRightMotor.setPower(-motorPower); */
             }
             if (this.gamepad2.dpad_up)
             {
@@ -174,4 +185,4 @@ public class R2TeleOp extends R_2_OpMode
             telemetry.update();
         }
     }
-}
+

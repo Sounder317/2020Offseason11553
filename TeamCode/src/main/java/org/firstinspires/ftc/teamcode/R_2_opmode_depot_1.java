@@ -34,15 +34,15 @@ public class R_2_opmode_depot_1 extends R_2_OpMode {
     @Override public void runOpMode() 
     {
        
-        initRobot(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     
         telemetry.addData("Status", "Initialized");
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         
         waitForStart();
-        runtime.reset(); 
-      
+        runtime.reset();
+        initRobot(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //set encoder
         frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
