@@ -36,7 +36,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
     private static final boolean PHONE_IS_PORTRAIT = true;
 
     private static final String VUFORIA_KEY =
-            "ASGFjiL/////AAABmaZPknqZXkmmtTGwg+uEgu2C3gZHn4ty9G5tCQODMMEmOGMJ//A61QXRzXTQ325wH/0YePAvHwhvQi3WvEl7/uo7TXACAxQck03MAZt/TLhbD19Q39Op9sr1cMaNNbBNV8EmjqvuP9zs8FvgYKXK9s/llYal1b9PAHbyQcA2pFBX89JTcP+gkYR8ZtN6Ce5GuuKfdeMM+x4BIuIDyFqO/cAbQ2YYqGbhssjM5Qh3gZyFDtJzFm4jnY33EI1wFRfKguwU5W58i9TLty4S/OfSUV6B7n+6iOfJgYrG6d26sbwkklAlH2AhNuRtNbTjworCq2IFczGeJwSC+IsFcy70pE4L2bhTSyogln8q0RKulZ/r ";
+             "AaS8xZz/////AAABmYRAdPhXRkbakiVrxj3AzpQewhQrC2RuGeRbTN9lpwdQgl4/kIrWYRgi64l0le9jJDj15kDxkQUz0EY4/g7exi9CC5nedepdNgDeM7yqW8hsRF2WO3CSiJuFKgVrGx2Kd0Ymb1NNiLphZ2JOnjhXDx01ykbPGA3KB0D8ZfcKgcICaWQ9fuplJi5bpmU3pVKMSPiw34JSP5EZ3lh075Tpg3TXvI50eAqPDVSpAxo5GsG2ueIjCqasKsfohMcBUUayScIFjNz3F3YjnTtiSGOi07LssLSEYfENK2jb1wbQ5DR6Ejl0g2PK0tdq3VtAHCg9HZxQb65jsbDv0GB12o2GkVvUtbXZL360dK8jqFx+Gjff";
 
     private static final float mmPerInch = 25.4f;
     private static final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
@@ -100,39 +100,33 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
 
 
 
-            //getToPosition();
-            getSkyStone();
-
-            getSkyStonePush();
+            getToPosition();
+          //  scan(10000);
+            //getSkyStone();
+            center();
+           // getSkyStonePush();
 
 
         }
     }
 
     public void getToPosition() {
-        driveStraight(2, -7);
-        strafeLeft(2, 26);
-
+        driveStraight(1, 8);
+        strafeRight(1,4);
     }
 
     public void getSkyStone() {
 
-    scan(7000);
+
 
         if (leftBlock) {
-            strafeRight(2, 6);
-            driveStraight(2, 8);
-            rotate(2, 16);
+          left();
         } else if (rightBlock) {
 
-            strafeRight(2, 6);
-            driveStraight(2, 8);
-            rotate(2, 16);
+          right();
         } else if (centerBlock) {
 
-            strafeRight(1, 4);
-            driveStraight(1, 4);
-            rotate(2, 16);
+           center();
 
         }
         else{
@@ -152,6 +146,33 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
         rotate(2,-16);
         driveStraight(2,16);
     }
+    public void left()
+    {
+        strafeRight(2, 6);
+        driveStraight(2, 8);
+        rotate(2, 16);
+    }
+    public void right()
+    {
+        strafeRight(2, 6);
+        driveStraight(2, 8);
+        rotate(2, 16);
+    }
+    public void center()
+    {
+        //raiseArm(-1,1);
+        long startTime=System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+500){
+        extentionServo.setPower(2);
+        armServo.setPower(1);
+        }
+        driveStraight(1, 4);
+        long startTime2=System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+500){
+            armServo.setPower(-1);
+        }
+
+    }
     public void scan(double time) {
 
         {
@@ -162,12 +183,12 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
             telemetry.update();
 
            // while(System.currentTimeMillis()<startTime+3000){
-                telemetry.addData("Time2",startTime);
-                telemetry.update();
+
+
                 int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
                 VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-                // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+               // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
                 parameters.vuforiaLicenseKey = VUFORIA_KEY;
                 parameters.cameraDirection = CAMERA_CHOICE;
@@ -372,6 +393,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
             telemetry.addLine("Timedone");
             telemetry.update();
         }
+
     }
 
 
