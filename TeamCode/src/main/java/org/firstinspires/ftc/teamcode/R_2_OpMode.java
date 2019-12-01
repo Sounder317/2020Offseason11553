@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.Range;
@@ -25,12 +27,14 @@ public abstract class R_2_OpMode extends LinearOpMode
     protected DcMotor rightArmMotor;
     protected DcMotor extensionMotor;
 
-     protected CRServo armServo;
-     protected CRServo extentionServo;
+    protected CRServo armServo;
+    protected CRServo extentionServo;
+    protected Servo push1Servo;
 
-     protected Servo foundationServo1;
-     protected Servo foundationServo2;
 
+    protected Servo foundationServo1;
+    protected Servo foundationServo2;
+    protected Servo push2Servo;
 
     protected int loopCount = 0;                // counter for how long opMode has run
     protected boolean slowMode = false;         // whether to be in slow or precise mode
@@ -57,22 +61,27 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         armServo = hardwareMap.get(CRServo.class, "armServo");
         extentionServo = hardwareMap.get(CRServo.class, "extensionServo");
+        push1Servo = hardwareMap.get(Servo.class, "push1Servo");
 
         foundationServo1 = hardwareMap.get(Servo.class, "foundationServo1");
         foundationServo2 = hardwareMap.get(Servo.class, "foundationServo2");
+        foundationServo2.setDirection(Servo.Direction.REVERSE);
+
+        push2Servo= hardwareMap.get(Servo.class, "push2Servo");
 
         setDriveMotorsMode(runMode);
         //    setArmMotorsMode(runMode);
 
         // set the direction of the right motors so they match the left motors
-        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
-        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
+        backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         //    rightArmMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //  leftArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         leftArmMotor.setPower(0.0);
         rightArmMotor.setPower(0.0);
@@ -99,8 +108,8 @@ public abstract class R_2_OpMode extends LinearOpMode
         double drivePower = Range.clip(power, 0, 1);
 
         // move
-        frontLeftMotor.setPower(drivePower);
-        frontRightMotor.setPower(-drivePower);
+        frontLeftMotor.setPower(-drivePower);
+        frontRightMotor.setPower(drivePower);
         backLeftMotor.setPower(drivePower);
         backRightMotor.setPower(-drivePower);
 
@@ -213,6 +222,33 @@ public abstract class R_2_OpMode extends LinearOpMode
             telemetry.update();
         }
     }
+    public void raiseArm(double power, double rotations)
+    {
+    extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    int ticks = (int) (TICKS_PER_ROTATION*rotations);
+
+    extensionMotor.setTargetPosition(ticks);
+    extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    double extentionPower=Range.clip(power,0, 1);
+
+    extensionMotor.setPower(extentionPower);
+
+    while(extensionMotor.isBusy() && opModeIsActive()){
+        telemetry.addData("Extension is", extensionMotor.getCurrentPosition());
+        telemetry.update();
+    }
+    }
+
+    public void drop(){
+        push2Servo.getPosition();
+        push1Servo.getPosition();
+  push1Servo.setPosition(1);
+
+  push2Servo.setPosition(1);
+
+}
 
     //public void raiseArm()
 //    {
@@ -334,15 +370,18 @@ public abstract class R_2_OpMode extends LinearOpMode
     public void stopExtension() {extentionServo.setPower(0);}
 
     public void grabFoundation() {
-    foundationServo1.setPosition(.4);
-    foundationServo2.setPosition(.4);
-}
-
-    public void releaseFoundation() {
         foundationServo1.setPosition(1);
         foundationServo2.setPosition(1);
     }
 
+    public void releaseFoundation() {
+        foundationServo1.setPosition(-0.50);
+        foundationServo2.setPosition(-0.50);
+    }
+
+    public void semiReleaseFoundation()  {
+        foundationServo1.setPosition(-0.50);
+    }
 
     public void scanSkyStones()
     {
