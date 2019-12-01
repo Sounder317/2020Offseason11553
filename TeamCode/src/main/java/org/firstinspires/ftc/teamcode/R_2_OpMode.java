@@ -91,7 +91,7 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         int ticks = (int) (TICKS_PER_INCH * -inches);
 
-        frontLeftMotor.setTargetPosition(ticks);
+        frontLeftMotor.setTargetPosition(ticks);     //tells how far (based off of ticks) the robot should go
         frontRightMotor.setTargetPosition(ticks);
         backLeftMotor.setTargetPosition(ticks);
         backRightMotor.setTargetPosition(ticks);

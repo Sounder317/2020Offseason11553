@@ -20,14 +20,12 @@ import android.graphics.Color;
 import android.view.View;
 
 @TeleOp
-public class R2_Skystone1_TeleOp extends R_2_OpMode
-{
+public class R2_Skystone1_TeleOp extends R_2_OpMode {
     //@Override
     public void runOpMode() {
         initRobot(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        while (!opModeIsActive())
-        {
+        while (!opModeIsActive()) {
             telemetry.addData("Status", "Initialized");
             telemetry.update();
             waitForStart();
@@ -39,8 +37,11 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode
         double leftPower = -0;
         double rightPower = 0;
 
-        while (opModeIsActive())
-        {
+        while (opModeIsActive()) {
+
+            foundationServo1.setPosition(.5);
+            foundationServo2.setPosition(.5);
+
             setDriveMotorsMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             setArmMotorsMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             extensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -52,15 +53,14 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode
             motorPower = this.gamepad1.left_stick_y;
 
             // right stick steering
-            steering = this.gamepad1.right_stick_x;
+            steering = this.gamepad1.left_stick_x;
 
             // drive formula
-           // leftPower = motorPower - steering;
-           // rightPower = motorPower + steering;
+            leftPower = motorPower - steering;
+            rightPower = motorPower + steering;
 
             //if the a button is pressed then toggle if you are in slowMode
-            if (this.gamepad1.a)
-            {
+            if (this.gamepad1.a) {
                 slowMode = !slowMode;
             }
 //            if (this.gamepad1.b)
@@ -69,80 +69,61 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode
 //                driveStraight(0.5,10.0);
 //            }
 
-            if (slowMode)
-            {
-                motorPower = motorPower/2.0;
-                steering = steering/2.0;
+            if (slowMode) {
+                rightPower = rightPower/2.0;
+                leftPower = leftPower/2.0;
             }
 
             //armpower
             // Move arm up and down
-            if (this.gamepad1.left_bumper)
-            {
+          /*  if (this.gamepad1.left_bumper) {
                 // move arm up
                 leftArmMotor.setPower(0.5);
                 rightArmMotor.setPower(0.5);
-            }
-            else if (this.gamepad1.right_bumper)
-            {
+            } else if (this.gamepad1.right_bumper) {
                 // move arm down
                 rightArmMotor.setPower(-0.5);
                 leftArmMotor.setPower(-0.5);
-            }
-            else if (this.gamepad2.left_bumper)
-            {
+            } else if (this.gamepad2.left_bumper) {
                 // move arm up
                 leftArmMotor.setPower(0.5);
                 rightArmMotor.setPower(0.5);
-            }
-            else if (this.gamepad2.right_bumper)
-            {
+            } else if (this.gamepad2.right_bumper) {
                 // move arm down
                 rightArmMotor.setPower(-0.5);
                 leftArmMotor.setPower(-0.5);
-            }
-            else
-            {
+            } else {
                 rightArmMotor.setPower(0.0);
                 leftArmMotor.setPower(0.0);
-            }
+            } */
 
-            if (this.gamepad2.y)
-            {
+            if (this.gamepad2.y) {
                 loadBucket();
-            }
-
-            else if (this.gamepad2.x)
-            {
+            } else if (this.gamepad2.x) {
                 unloadBucket();
-            }
-            else
-            {
+            } else {
                 stopServo();
             }
 
+
             // make sure we dont make the power too low/high
-            leftPower = Range.clip(leftPower, -1, 1);
-            rightPower = Range.clip(rightPower, -1, 1);
+            leftPower = Range.clip(leftPower, -1, 2);
+            rightPower = Range.clip(rightPower, -1, 2);
 
-            frontLeftMotor.setPower(steering);
-            backLeftMotor.setPower(steering);
 
+            frontLeftMotor.setPower(-rightPower);
+            backLeftMotor.setPower(-rightPower);
+
+            frontRightMotor.setPower(-leftPower);
+            backRightMotor.setPower(-leftPower);
+
+
+        /*    frontLeftMotor.setPower(steering);      //allows robot to strafe
             frontRightMotor.setPower(-steering);
-            backRightMotor.setPower(-steering);
+            backLeftMotor.setPower(-steering);
+            backRightMotor.setPower(steering);  */
 
-            frontLeftMotor.setPower(this.gamepad1.left_stick_y);
-            backLeftMotor.setPower(this.gamepad1.left_stick_y);
-
-            frontRightMotor.setPower(this.gamepad1.left_stick_y);
-            backRightMotor.setPower(this.gamepad1.left_stick_y);
-
-            frontLeftMotor.setPower(this.gamepad1.left_stick_x);
-            frontRightMotor.setPower(-this.gamepad1.left_stick_x);
-            backLeftMotor.setPower(-this.gamepad1.left_stick_x);
-            backRightMotor.setPower(this.gamepad1.left_stick_x);
-
-        /*    if (this.gamepad1.dpad_left)
+            if (this.gamepad1.right_bumper)             //other strafing method
             {
                 motorPower = 1.0;
 
@@ -151,26 +132,32 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode
                 backLeftMotor.setPower(-motorPower);
                 backRightMotor.setPower(motorPower);
             }
-            else if (this.gamepad1.dpad_right)
+            else if (this.gamepad1.left_bumper)
             {
                 motorPower = 1.0;
 
                 frontLeftMotor.setPower(-motorPower);
                 frontRightMotor.setPower(motorPower);
                 backLeftMotor.setPower(motorPower);
-                backRightMotor.setPower(-motorPower); */
+                backRightMotor.setPower(-motorPower);
             }
-            if (this.gamepad2.dpad_up)
-            {
-                extensionMotor.setPower(0.5);
-            }
-            else if (this.gamepad2.dpad_down)
-            {
+
+            if (this.gamepad2.dpad_up) {
                 extensionMotor.setPower(-0.5);
-            }
-            else
-            {
+            } else if (this.gamepad2.dpad_down) {
+                extensionMotor.setPower(0.5);
+            } else {
                 extensionMotor.setPower(0);
+            }
+
+            if (gamepad2.left_bumper){
+                extentionServo.setPower(0.5);
+            }
+            else if (gamepad2.right_bumper){
+                extentionServo.setPower(-0.5);
+            }
+            else {
+                extentionServo.setPower(0);
             }
 
             telemetry.addData("Left Arm is ", leftArmMotor.getCurrentPosition());
@@ -185,4 +172,5 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode
             telemetry.update();
         }
     }
+}
 
