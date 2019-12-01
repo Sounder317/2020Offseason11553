@@ -60,6 +60,7 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         foundationServo1 = hardwareMap.get(Servo.class, "foundationServo1");
         foundationServo2 = hardwareMap.get(Servo.class, "foundationServo2");
+        foundationServo2.setDirection(Servo.Direction.REVERSE);
 
         setDriveMotorsMode(runMode);
         //    setArmMotorsMode(runMode);
@@ -334,15 +335,18 @@ public abstract class R_2_OpMode extends LinearOpMode
     public void stopExtension() {extentionServo.setPower(0);}
 
     public void grabFoundation() {
-    foundationServo1.setPosition(.4);
-    foundationServo2.setPosition(.4);
+    foundationServo1.setPosition(1);
+    foundationServo2.setPosition(1);
 }
 
     public void releaseFoundation() {
-        foundationServo1.setPosition(1);
-        foundationServo2.setPosition(1);
+        foundationServo1.setPosition(-0.50);
+        foundationServo2.setPosition(-0.50);
     }
 
+    public void semiReleaseFoundation()  {
+        foundationServo1.setPosition(-0.50);
+    }
 
     public void scanSkyStones()
     {

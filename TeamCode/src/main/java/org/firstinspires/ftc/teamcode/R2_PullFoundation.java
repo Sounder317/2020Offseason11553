@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="R_2_PullFoundation", group="zzz")
+@Autonomous(name="R_3_PullFoundation", group="zzz")
 public class R2_PullFoundation extends R_2_OpMode
 {
     @Override
@@ -32,33 +32,49 @@ public class R2_PullFoundation extends R_2_OpMode
         //leftArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //leftArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            if (opModeIsActive()) {
+            while (opModeIsActive()) {
 
-                /* Move 12 inches forward */
-                driveStraight(.5, 12 );
-
-                //beginning of strafe to the left assuming 12 inches as encoderDrivingTarget is already set to 12
-                strafeLeft( 0.5,30);
-
-                /* Move 15 inches forward */
-                driveStraight(.5, 15 );
-
-                //grabbing foundation using servo
-                grabFoundation();
-
-                // beginning of moving back, 27 inches is needed
-                driveStraight(-.5, 27 );
-
-                //releasing foundation using servos
                 releaseFoundation();
 
-                //rest for 19 seconds
-                sleep(19000);
+             //   Move 12 inches forward */
+                driveStraight(.5, -20 );
+                driveStraight(.25, -5 );
 
-                //move right for parking
-                strafeRight(.5, 35);
+                //beginning of strafe to the left assuming 12 inches as encoderDrivingTarget is already set to 12
+//                strafeLeft( 0.5,30);
+                sleep(2000);
+                //grabbing foundation using servo
+                grabFoundation();
+                sleep(1000);
+
+                // beginning of moving back, 27 inches is needed
+                driveStraight(0.25, 5 );
+                sleep(500);
+
+                driveStraight(0.25, 5 );
+                sleep(500);
+
+                driveStraight(0.25, 5 );
+                sleep(500);
+
+                driveStraight(0.25, 3 );
+                sleep(500);
+
+               // semiReleaseFoundation();
 
 
+                driveStraight(0.25, 5 );
+                sleep(500);
+
+                //releasing foundation using servos
+               releaseFoundation();
+                sleep(1000);
+
+
+              //  move right for parking
+           strafeRight(.5, 35);
+
+                break;
         }
     }
 }
