@@ -33,7 +33,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="R_2_redBlockSide", group="zzz")
 public class R_2_redBlockSide extends R2_skyStoneClass {
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = true;
+    private static final boolean PHONE_IS_PORTRAIT = false;
 
     private static final String VUFORIA_KEY =
              "AaS8xZz/////AAABmYRAdPhXRkbakiVrxj3AzpQewhQrC2RuGeRbTN9lpwdQgl4/kIrWYRgi64l0le9jJDj15kDxkQUz0EY4/g7exi9CC5nedepdNgDeM7yqW8hsRF2WO3CSiJuFKgVrGx2Kd0Ymb1NNiLphZ2JOnjhXDx01ykbPGA3KB0D8ZfcKgcICaWQ9fuplJi5bpmU3pVKMSPiw34JSP5EZ3lh075Tpg3TXvI50eAqPDVSpAxo5GsG2ueIjCqasKsfohMcBUUayScIFjNz3F3YjnTtiSGOi07LssLSEYfENK2jb1wbQ5DR6Ejl0g2PK0tdq3VtAHCg9HZxQb65jsbDv0GB12o2GkVvUtbXZL360dK8jqFx+Gjff";
@@ -104,6 +104,7 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
           //  scan(10000);
             //getSkyStone();
             center();
+            goToPlate();
            // getSkyStonePush();
 
 
@@ -111,8 +112,13 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
     }
 
     public void getToPosition() {
-        driveStraight(1, 8);
-        strafeRight(1,4);
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+500){
+            armServo.setPower(0.5);
+        }
+        driveStraight(1, 10);
+        strafeRight(1,6);
+
     }
 
     public void getSkyStone() {
@@ -148,30 +154,52 @@ public class R_2_redBlockSide extends R2_skyStoneClass {
     }
     public void left()
     {
-        strafeRight(2, 6);
+        strafeLeft(2, 6);
         driveStraight(2, 8);
-        rotate(2, 16);
+        long startTime=System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+1500) {
+            extentionServo.setPower(.75);
+        }
+        long startTime2 = System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+250){
+            armServo.setPower(-.5);
+        }
     }
     public void right()
     {
         strafeRight(2, 6);
         driveStraight(2, 8);
-        rotate(2, 16);
+        long startTime=System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+2000) {
+            extentionServo.setPower(.75);
+        }
+        long startTime2 = System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime2+500){
+            armServo.setPower(-.5);
+        }
     }
     public void center()
     {
         //raiseArm(-1,1);
+        driveStraight(1,6);
         long startTime=System.currentTimeMillis();
-        while (System.currentTimeMillis()<startTime+500){
-        extentionServo.setPower(2);
-        armServo.setPower(1);
+        while (System.currentTimeMillis()<startTime+2000) {
+            extentionServo.setPower(.75);
         }
-        driveStraight(1, 4);
-        long startTime2=System.currentTimeMillis();
-        while (System.currentTimeMillis()<startTime+500){
-            armServo.setPower(-1);
+        long startTime2 = System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime2+700){
+            armServo.setPower(-.5);
         }
 
+    }
+    public void goToPlate(){
+        driveStraight(1,-14);
+        rotate(1,12.5);
+        driveStraight(1,30);
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis()<startTime+500){
+            armServo.setPower(0.5);
+        }
     }
     public void scan(double time) {
 
