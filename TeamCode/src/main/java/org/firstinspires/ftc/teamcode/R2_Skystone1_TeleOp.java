@@ -1,23 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import java.lang.annotation.Target;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Gyroscope;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.CRServo;
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import java.lang.annotation.Target;
+        import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+        import com.qualcomm.robotcore.hardware.DigitalChannel;
+        import com.qualcomm.robotcore.hardware.DistanceSensor;
+        import com.qualcomm.robotcore.hardware.Servo;
+        import com.qualcomm.robotcore.util.Range;
+        import org.firstinspires.ftc.robotcore.external.navigation.Position;
+        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.hardware.HardwareMap;
+        import com.qualcomm.robotcore.hardware.Gyroscope;
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.ColorSensor;
+        import com.qualcomm.robotcore.hardware.CRServo;
+        import android.app.Activity;
+        import android.graphics.Color;
+        import android.view.View;
 
 @TeleOp
 public class R2_Skystone1_TeleOp extends R_2_OpMode {
@@ -33,14 +33,15 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
 
         double motorPower = 0;
         double steering = 0;
-
+        boolean foundationMove = false;
         double leftPower = -0;
         double rightPower = 0;
 
         while (opModeIsActive()) {
 
-            foundationServo1.setPosition(.5);
-            foundationServo2.setPosition(.5);
+           // foundationServo1.setPosition(1);
+          //  foundationServo2.setDirection(Servo.Direction.REVERSE);
+         //   foundationServo2.setPosition(1);
 
             setDriveMotorsMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             setArmMotorsMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -50,14 +51,14 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             loopCount++;
 
             // right stick is throttle
-            motorPower = this.gamepad1.left_stick_y;
+            motorPower = -this.gamepad1.left_stick_y;
 
             // right stick steering
             steering = this.gamepad1.left_stick_x;
 
             // drive formula
-            leftPower = motorPower - steering;
-            rightPower = motorPower + steering;
+            leftPower = motorPower + steering;
+            rightPower = motorPower - steering;
 
             //if the a button is pressed then toggle if you are in slowMode
             if (this.gamepad1.a) {
@@ -107,8 +108,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
 
 
             // make sure we dont make the power too low/high
-            leftPower = Range.clip(leftPower, -1, 2);
-            rightPower = Range.clip(rightPower, -1, 2);
+            leftPower = Range.clip(leftPower, -1, 1.5);
+            rightPower = Range.clip(rightPower, -1, 1.5);
 
 
             frontLeftMotor.setPower(-rightPower);
@@ -123,7 +124,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             backLeftMotor.setPower(-steering);
             backRightMotor.setPower(steering);  */
 
-            if (this.gamepad1.right_bumper)             //other strafing method
+            if (this.gamepad1.left_bumper)             //other strafing method
             {
                 motorPower = 1.0;
 
@@ -132,7 +133,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
                 backLeftMotor.setPower(-motorPower);
                 backRightMotor.setPower(motorPower);
             }
-            else if (this.gamepad1.left_bumper)
+            else if (this.gamepad1.right_bumper)
             {
                 motorPower = 1.0;
 
@@ -143,7 +144,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             if (this.gamepad2.dpad_up) {
-                extensionMotor.setPower(-0.5);
+                extensionMotor.setPower(-0.75);
             } else if (this.gamepad2.dpad_down) {
                 extensionMotor.setPower(0.5);
             } else {
@@ -158,6 +159,17 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
             else {
                 extentionServo.setPower(0);
+            }
+            if (this.gamepad1.b){
+                foundationServo1.setPosition(.3);
+                foundationServo2.setDirection(Servo.Direction.REVERSE);
+                foundationServo2.setPosition(.5);
+            }
+
+            if (this.gamepad1.y) {
+                foundationServo1.setPosition(1);
+                foundationServo2.setDirection(Servo.Direction.REVERSE);
+                foundationServo2.setPosition(1);
             }
 
             telemetry.addData("Left Arm is ", leftArmMotor.getCurrentPosition());
