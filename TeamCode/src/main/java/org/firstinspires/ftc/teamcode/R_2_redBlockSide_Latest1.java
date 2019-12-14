@@ -118,7 +118,7 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(2000);
+            scanSkyStone(3500);
             getSkyStone();
 
 
@@ -396,6 +396,6 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
         }
 
         extentionServo.setPower(0);
-        driveStraight(2,-5);
+        driveStraight(2,-10);
     }
 }
