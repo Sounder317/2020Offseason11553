@@ -21,6 +21,7 @@ package org.firstinspires.ftc.teamcode;
 
 @TeleOp
 public class R2_Skystone1_TeleOp extends R_2_OpMode {
+
     //@Override
     public void runOpMode() {
         initRobot(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -55,13 +56,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             leftPower = motorPower + steering;
             rightPower = motorPower - steering;
 
-            //if the a button is pressed then toggle if you are in slowMode
-
-            if (this.gamepad1.a) {
-                slowMode = !slowMode;
-            }
-
-            if (this.gamepad1.left_trigger>0){
+            // if triggers are held go slower
+            if (this.gamepad1.left_trigger > 0){
                 rightPower = rightPower / 4.0;
                 leftPower = leftPower / 4.0;
             }
@@ -69,8 +65,6 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
                 rightPower = rightPower / 2.0;
                 leftPower = leftPower / 2.0;
             }
-
-
 
             if (this.gamepad2.y) {
                 loadBucket();
@@ -132,6 +126,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             else {
                 extentionServo.setPower(0);
             }
+
             if (this.gamepad1.b){
                 foundationServo1.setPosition(.3);
                 foundationServo2.setDirection(Servo.Direction.REVERSE);
@@ -144,14 +139,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
                 foundationServo2.setPosition(1);
             }
 
-            telemetry.addData("Left Arm is ", leftArmMotor.getCurrentPosition());
-            telemetry.addData("Right Arm is ", rightArmMotor.getCurrentPosition());
-
             telemetry.addData("Left Front is ", frontLeftMotor.getCurrentPosition());
             telemetry.addData("Right Front is ", frontRightMotor.getCurrentPosition());
-
-            telemetry.addData("Arm Servo", armServo.getPower());
-            telemetry.addData("Slow Mode", slowMode);
             telemetry.addData("Loop Count", loopCount);
             telemetry.update();
         }

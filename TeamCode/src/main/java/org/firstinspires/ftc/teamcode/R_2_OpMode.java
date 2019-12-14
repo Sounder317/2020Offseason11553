@@ -70,18 +70,12 @@ public abstract class R_2_OpMode extends LinearOpMode
         push2Servo= hardwareMap.get(Servo.class, "push2Servo");
 
         setDriveMotorsMode(runMode);
-        //    setArmMotorsMode(runMode);
 
         // set the direction of the right motors so they match the left motors
-
         backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-        //    rightArmMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        //  leftArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //rightArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
         leftArmMotor.setPower(0.0);
         rightArmMotor.setPower(0.0);
@@ -224,95 +218,29 @@ public abstract class R_2_OpMode extends LinearOpMode
     }
     public void raiseArm(double power, double rotations)
     {
-    extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-    int ticks = (int) (TICKS_PER_ROTATION*rotations);
+        int ticks = (int) (TICKS_PER_ROTATION*rotations);
 
-    extensionMotor.setTargetPosition(ticks);
-    extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        extensionMotor.setTargetPosition(ticks);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    double extentionPower=Range.clip(power,0, 1);
+        double extentionPower=Range.clip(power,0, 1);
 
-    extensionMotor.setPower(extentionPower);
+        extensionMotor.setPower(extentionPower);
 
-    while(extensionMotor.isBusy() && opModeIsActive()){
-        telemetry.addData("Extension is", extensionMotor.getCurrentPosition());
-        telemetry.update();
-    }
+        while(extensionMotor.isBusy() && opModeIsActive()){
+            telemetry.addData("Extension is", extensionMotor.getCurrentPosition());
+            telemetry.update();
+        }
     }
 
     public void drop(){
         push2Servo.getPosition();
         push1Servo.getPosition();
-  push1Servo.setPosition(1);
-
-  push2Servo.setPosition(1);
-
-}
-
-    //public void raiseArm()
-//    {
-    // save the mode
-    //  DcMotor.RunMode leftMode = leftArmMotor.getMode();
-    //      DcMotor.RunMode rightMode = rightArmMotor.getMode();
-
-    //    leftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    //  leftArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    //rightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    //    rightArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-    //    leftArmMotor.setTargetPosition(3000);
-    //  rightArmMotor.setTargetPosition(3000);
-
-    //    leftArmMotor.setPower(0.5);
-    //  rightArmMotor.setPower(0.5);
-
-    // keep looping until motor reach to the target position
-    //while(leftArmMotor.isBusy() && rightArmMotor.isBusy())
-    //{
-    //  telemetry.addData("Left Arm is ", leftArmMotor.getCurrentPosition());
-    //    telemetry.addData("Right Arm is ", rightArmMotor.getCurrentPosition());
-    //  telemetry.update();
-    //}
-
-    //leftArmMotor.setPower(0.0);
-//        rightArmMotor.setPower(0.0);
-//
-    //      leftArmMotor.setMode(leftMode);
-    //    rightArmMotor.setMode(rightMode);
-    //}
-
-//    public void lowerArm()
-    //  {
-    //    // save the mode
-    //  DcMotor.RunMode leftMode = leftArmMotor.getMode();
-    //    DcMotor.RunMode rightMode = rightArmMotor.getMode();
-
-    //     leftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    //   rightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        leftArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    //      rightArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//
-    //      leftArmMotor.setTargetPosition(0);
-    //    rightArmMotor.setTargetPosition(0);
-//
-    //      leftArmMotor.setPower(-0.5);
-    //    rightArmMotor.setPower(-0.5);
-    //  backRightMotor.setPower(-0.2);
-    //backLeftMotor.setPower(-0.2);
-//
-    //      // keep looping until motor reach to the target position
-    //    while(leftArmMotor.isBusy() && rightArmMotor.isBusy())
-    //  {
-    //    telemetry.addData("Left Arm is ", leftArmMotor.getCurrentPosition());
-//            telemetry.addData("Right Arm is ", rightArmMotor.getCurrentPosition());
-    //          telemetry.update();
-    //    }
-    //  leftArmMotor.setPower(0.0);
-    //rightArmMotor.setPower(0.0);
-
-    //    resetArmMotors();
-    //}
+        push1Servo.setPosition(1);
+        push2Servo.setPosition(1);
+    }
 
     public void setDriveMotorsMode(DcMotor.RunMode runMode)
     {
@@ -351,7 +279,7 @@ public abstract class R_2_OpMode extends LinearOpMode
 
     }
 
-     public void loadBucket()
+    public void loadBucket()
     {
        armServo.setPower(0.5);
     }
