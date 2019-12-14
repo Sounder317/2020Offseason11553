@@ -36,42 +36,37 @@ public class R2_Blue_PullFoundation extends R_2_OpMode
 
             releaseFoundation();
 
-            // Move 12 inches forward
-            driveStraight(.5, 20 );
+            // Move 2 inches forward
+            driveStraight(.5, 2 );
+
+            //beginning of strafe to the right for 23 inches
+            strafeLeft( 0.25,23);
+
+            // Move 23 inches forward
+            driveStraight(.5, 18 );
             driveStraight(.25, 5 );
 
-            //beginning of strafe to the left assuming 12 inches as encoderDrivingTarget is already set to 12
-            //strafeLeft( 0.5,30);
             sleep(2000);
 
             //grabbing foundation using servo
             grabFoundation();
             sleep(1000);
 
-            // beginning of moving back, 27 inches is needed
-            driveStraight(0.25, -5 );
-            sleep(500);
-
-            driveStraight(0.25, -5 );
-            sleep(500);
-
-            driveStraight(0.25, -5 );
-            sleep(500);
-
-            driveStraight(0.25, -5 );
-            sleep(500);
-
-            //semiReleaseFoundation();
-
-            driveStraight(0.25, -6 );
+            // beginning of moving back, 30 inches is needed
+            driveStraight(0.25, -30 );
+            //driveStraight(0.25, -6 );
             sleep(500);
 
             //releasing foundation using servos
             releaseFoundation();
             sleep(1000);
 
-            //move Right for parking
-            strafeRight(.5, 35);
+            //Just move 1 inch forward so that robot won't touch the glass on back side
+            driveStraight(.25, 1 );
+            sleep(1000);
+
+            //move left for parking
+            strafeRight(.5, 40);
 
             break;
         }
