@@ -26,8 +26,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 //look angle 1 and a qaurter
 //TODO extend R_2_OPMode instead of R2_skyStoneClass?
-@Autonomous(name="R_2_redBlockSide_Latest1", group="zzz")
-public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
+@Autonomous(name="R_2_blueBlockSide", group="zzz")
+public class R_2_blueBlockSide extends R_2_OpMode
 {
     //TODO move some of these constants to setupVuforia() as they are needed only in setupVuforia()
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -268,20 +268,20 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX < 100){
+                if (robotX > 75){
                     telemetry.addData("REACHING RIGHT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
                     theCenterBlock=false;
                     rightBlock=false;
-                 //  return true;
-                } else if (robotX > 100) {
+                    //  return true;
+                } else if (robotX < 75) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
                     leftBlock=false;
                     rightBlock=false;
-                   // return true;
+                    // return true;
                 }
                 else{
                     theCenterBlock=false;
@@ -297,10 +297,10 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
 
         } return false;
     }
-        // Formats a matrix into a readable stringprivate
+    // Formats a matrix into a readable stringprivate
     String formatMatrix(OpenGLMatrix matrix) {
-            return matrix.formatAsTransform();
-        }
+        return matrix.formatAsTransform();
+    }
 
 
     public void getSkyStone() {
@@ -308,15 +308,15 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
         // TODO change the values that we are comparing as X,Y and Z are relative to origin( starting point in this case)
 
 
-          if (theCenterBlock){
-              center();
-          }
-          else if (leftBlock){
-             left();
-          }
-          else {
-              right();
-          }
+        if (theCenterBlock){
+            center();
+        }
+        else if (leftBlock){
+            left();
+        }
+        else {
+            right();
+        }
 
     }
 
@@ -337,7 +337,7 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
         driveStraight(2, 16);
     }
 
-    public void center() {
+    public void left() {
 
         strafeLeft(.75, 8.25);
         driveStraight(.5, 13);
@@ -354,8 +354,8 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
         strafeRight(.75, 8.25);
     }
     public void right() {
-        strafeLeft(.75, 15);
-        driveStraight(.5, 16);
+        strafeLeft(.75, -5);
+        driveStraight(.5, 14);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -365,11 +365,11 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
         while (System.currentTimeMillis() < startTime2 + 500) {
             armServo.setPower(-.5);
         }
-        driveStraight(1, -16);
-        strafeRight(.75,15);
+        driveStraight(1, -14);
+        strafeRight(.75,-5);
     }
 
-    public void left() {
+    public void center() {
         //raiseArm(-1,1);
         driveStraight(.5, 13);
         long startTime = System.currentTimeMillis();
@@ -383,12 +383,12 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
 
 
         }
-        driveStraight(2,-10);
+        driveStraight(2,-13);
     }
 
     public void goToPlate() {
 
-        rotate(1, 14);
+        rotate(1, -14);
         driveStraight(1, 30);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 750) {
@@ -397,5 +397,30 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
 
         extentionServo.setPower(0);
         driveStraight(2,-5);
+    }
+    public void goToSecoundBlock(){
+        if (theCenterBlock){
+
+        }
+       else if(leftBlock){
+           left2();
+        }
+        else if (rightBlock){
+
+        }
+        else {
+
+        }
+    }
+    public void center2(){
+
+    }
+    public void left2(){
+        rotate(2,-6);
+        driveStraight(2,40);
+        rotate(2,20);
+    }
+    public void right2(){
+
     }
 }
