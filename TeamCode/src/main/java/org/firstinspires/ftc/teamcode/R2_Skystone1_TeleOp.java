@@ -58,8 +58,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
 
             // if triggers are held go slower
             if (this.gamepad1.left_trigger > 0){
-                rightPower = rightPower / 4.0;
-                leftPower = leftPower / 4.0;
+                rightPower = rightPower / 3.0;
+                leftPower = leftPower / 3.0;
             }
             else if (this.gamepad1.right_trigger > 0) {
                 rightPower = rightPower / 2.0;
