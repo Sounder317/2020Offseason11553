@@ -118,7 +118,7 @@ public class R_2_blueBlockSide extends R_2_OpMode
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(2000);
+            scanSkyStone(3500);
             getSkyStone();
 
 
@@ -268,14 +268,14 @@ public class R_2_blueBlockSide extends R_2_OpMode
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX > 75){
+                if (robotX > 100){
                     telemetry.addData("REACHING RIGHT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
                     theCenterBlock=false;
                     rightBlock=false;
                     //  return true;
-                } else if (robotX < 75) {
+                } else if (robotX < 100) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
@@ -354,7 +354,7 @@ public class R_2_blueBlockSide extends R_2_OpMode
         strafeRight(.75, 8.25);
     }
     public void right() {
-        strafeLeft(.75, -5);
+        strafeLeft(.75, -6);
         driveStraight(.5, 14);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
@@ -366,7 +366,7 @@ public class R_2_blueBlockSide extends R_2_OpMode
             armServo.setPower(-.5);
         }
         driveStraight(1, -14);
-        strafeRight(.75,-5);
+        strafeRight(.75,-6);
     }
 
     public void center() {
@@ -384,19 +384,21 @@ public class R_2_blueBlockSide extends R_2_OpMode
 
         }
         driveStraight(2,-13);
+        strafeRight(2,4);
     }
 
     public void goToPlate() {
 
         rotate(1, -14);
-        driveStraight(1, 30);
+        driveStraight(1, 33);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 750) {
             armServo.setPower(0.5);
         }
 
         extentionServo.setPower(0);
-        driveStraight(2,-5);
+        driveStraight(2,-8);
+
     }
     public void goToSecoundBlock(){
         if (theCenterBlock){
