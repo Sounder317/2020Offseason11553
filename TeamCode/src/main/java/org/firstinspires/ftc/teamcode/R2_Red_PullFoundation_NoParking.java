@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="R2_Red_PullFoundation", group="zzz")
-public class R2_Red_PullFoundation extends R_2_OpMode
+public class R2_Red_PullFoundation_NoParking extends R_2_OpMode
 {
     @Override
     public void runOpMode() {
@@ -62,14 +62,14 @@ public class R2_Red_PullFoundation extends R_2_OpMode
             sleep(1000);
 
             //Just move 1 inch forward so that robot won't touch the glass on back side
-            driveStraight(.25, 1 );
+           // driveStraight(.25, 1 );
             sleep(1000);
 
             //Sleep for 5 more seconds
             sleep(5000);
 
             //move left for parking
-            strafeLeft(.5, 40);
+        //    strafeLeft(.5, 40);
 
             break;
         }

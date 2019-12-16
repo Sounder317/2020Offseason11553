@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="R2_Red_PullFoundation", group="zzz")
-public class R2_Red_PullFoundation extends R_2_OpMode
+@Autonomous(name="R2_Blue_PullFoundation", group="zzz")
+public class R2_Blue_PullFoundation_NoParking extends R_2_OpMode
 {
     @Override
     public void runOpMode() {
@@ -40,7 +40,7 @@ public class R2_Red_PullFoundation extends R_2_OpMode
             driveStraight(.5, 2 );
 
             //beginning of strafe to the right for 23 inches
-            strafeRight( 0.25,23);
+            strafeLeft( 0.25,23);
 
             // Move 23 inches forward
             driveStraight(.5, 19 );
@@ -62,14 +62,14 @@ public class R2_Red_PullFoundation extends R_2_OpMode
             sleep(1000);
 
             //Just move 1 inch forward so that robot won't touch the glass on back side
-            driveStraight(.25, 1 );
+            //driveStraight(.25, 1 );
             sleep(1000);
 
             //Sleep for 5 more seconds
             sleep(5000);
 
-            //move left for parking
-            strafeLeft(.5, 40);
+            //move Right for parking
+            //strafeRight(.5, 40);
 
             break;
         }
