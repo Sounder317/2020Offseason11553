@@ -32,11 +32,11 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             waitForStart();
         }
 
-        double motorPower = 0;
-        double steering = 0;
+        double motorPower;
+        double steering;
         boolean foundationMove = false;
-        double leftPower = -0;
-        double rightPower = 0;
+        double leftPower;
+        double rightPower;
 
         while (opModeIsActive()) {
 
@@ -77,8 +77,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             // make sure we dont make the power too low/high
-            leftPower = Range.clip(leftPower, -1, 1.0);
-            rightPower = Range.clip(rightPower, -1, 1.0);
+            leftPower = Range.clip(leftPower, -1, .75);
+            rightPower = Range.clip(rightPower, -1, .75);
 
             frontLeftMotor.setPower(-rightPower);
             backLeftMotor.setPower(-rightPower);
@@ -112,7 +112,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             if (this.gamepad2.dpad_up) {
-                extensionMotor.setPower(-0.85);
+                extensionMotor.setPower(-1.0);
             } else if (this.gamepad2.dpad_down) {
                 extensionMotor.setPower(0.75);
             } else {
@@ -130,7 +130,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             if (this.gamepad1.b){
-                foundationServo1.setPosition(.3);
+                foundationServo1.setPosition(.5);
                 foundationServo2.setDirection(Servo.Direction.REVERSE);
                 foundationServo2.setPosition(.5);
             }
