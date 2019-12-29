@@ -77,8 +77,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             // make sure we dont make the power too low/high
-            leftPower = Range.clip(leftPower, -1, 1.0);
-            rightPower = Range.clip(rightPower, -1, 1.0);
+            leftPower = Range.clip(leftPower, -1, .75);
+            rightPower = Range.clip(rightPower, -1, .75);
 
             frontLeftMotor.setPower(-rightPower);
             backLeftMotor.setPower(-rightPower);
