@@ -19,12 +19,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGR
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-
+import com.qualcomm.robotcore.util.Range;
 //look angle 1 and a qaurter
 //TODO extend R_2_OPMode instead of R2_skyStoneClass?
 @Autonomous(name="R_2_blueBlockSideSC", group="zzz")
-public class R_2_blueBlockSideSC extends R_2_OpMode
-{
+public class R_2_blueBlockSideSC extends R_2_OpMode {
     //TODO move some of these constants to setupVuforia() as they are needed only in setupVuforia()
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false;
@@ -44,9 +43,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
     public boolean leftBlock = false;
     public boolean rightBlock = false;
     public boolean theCenterBlock = false;
-    private float phoneXRotate    = 0;
-    private float phoneYRotate    = 0;
-    private float phoneZRotate    = 0;
+    private float phoneXRotate = 0;
+    private float phoneYRotate = 0;
+    private float phoneZRotate = 0;
 
     //Newly added Vuforia related Members for the simplified program
     private VuforiaLocalizer.Parameters parameters;
@@ -104,6 +103,8 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // rightArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //rightArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //leftArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -118,7 +119,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
             getSkyStone();
 
 
-            //goToPlate();
+            goToPlate();
             // getSkyStonePush();
             break;
         }
@@ -194,9 +195,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
         // TODO - IMPORTANT - Set these values correctly
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 6.5f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        final float CAMERA_FORWARD_DISPLACEMENT = 6.5f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
         final float CAMERA_VERTICAL_DISPLACEMENT = 12.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 5.0f * mmPerInch;    // eg: Camera is ON the robot's center line
+        final float CAMERA_LEFT_DISPLACEMENT = 5.0f * mmPerInch;    // eg: Camera is ON the robot's center line
 
         // Set phone location on robot
         //Change 7 - Order YZX is changed to XYZ
@@ -255,7 +256,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
 
             if (listener.isVisible()) {
                 telemetry.addData("Target", "VISIBLE");
-                telemetry.addData("robotX is ", robotX );
+                telemetry.addData("robotX is ", robotX);
                 telemetry.addData("robotY is ", robotY);
                 telemetry.addData("targetX is ", targetX);
                 telemetry.addData("targetY is ", targetX);
@@ -264,26 +265,25 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX > 100){
+                if (robotX > 100) {
                     telemetry.addData("REACHING LEFT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
-                    theCenterBlock=false;
-                    rightBlock=false;
+                    theCenterBlock = false;
+                    rightBlock = false;
                     //  return true;
                 } else if (robotX < 100) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
-                    leftBlock=false;
-                    rightBlock=false;
+                    leftBlock = false;
+                    rightBlock = false;
                     // return true;
-                }
-                else{
-                    theCenterBlock=false;
-                    leftBlock=false;
-                    rightBlock=true;
-                    telemetry.addData("Reaching_Right","TARGET");
+                } else {
+                    theCenterBlock = false;
+                    leftBlock = false;
+                    rightBlock = true;
+                    telemetry.addData("Reaching_Right", "TARGET");
                     telemetry.update();
 
                 }
@@ -291,8 +291,10 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
 
             }
 
-        } return false;
+        }
+        return false;
     }
+
     // Formats a matrix into a readable stringprivate
     String formatMatrix(OpenGLMatrix matrix) {
         return matrix.formatAsTransform();
@@ -304,13 +306,11 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
         // TODO change the values that we are comparing as X,Y and Z are relative to origin( starting point in this case)
 
 
-        if (theCenterBlock){
+        if (theCenterBlock) {
             center();
-        }
-        else if (leftBlock){
+        } else if (leftBlock) {
             left();
-        }
-        else {
+        } else {
             right();
         }
 
@@ -321,7 +321,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.75, 10);
+        driveStraight(.5, 10);
     }
 
     public void getSkyStonePush() {
@@ -346,11 +346,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
         while (System.currentTimeMillis() < startTime2 + 700) {
             armServo.setPower(-.5);
         }
-        driveStraight(1, -14);
-        strafeRight(.75, 8.25);
+        driveStraight(1, -5.5);
+
     }
+
     public void right() {
-        strafeLeft(.75, -5);
+        strafeRight(.75, 5);
         driveStraight(.5, 14);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
@@ -362,7 +363,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
             armServo.setPower(-.5);
         }
         driveStraight(1, -14);
-        strafeRight(.75,-5);
+        strafeLeft(.75, 13.25);
     }
 
     public void center() {
@@ -379,45 +380,119 @@ public class R_2_blueBlockSideSC extends R_2_OpMode
 
 
         }
-        driveStraight(2,-13);
-        strafeRight(2,4);
+        driveStraight(2, -13);
+        strafeRight(2, 8.25);
     }
 
     public void goToPlate() {
 
-        rotate(1, -14);
-        driveStraight(1, 60);
+        rotate(.5, -13.612);
+        driveStraight(1, 56.5);
         long startTime = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime + 750) {
-            armServo.setPower(0.5);
-        }
-        rotate(1,14);
 
+
+        rotate(.5, 13.62);
+        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        int extensionMotorPosition = extensionMotor.getCurrentPosition();
+        telemetry.addData("extention position", extensionMotorPosition);
+        extensionMotor.setTargetPosition(-2000);
+        extensionMotor.setPower(1);
+        while (extensionMotor.isBusy()) {
+            telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+            armServo.setPower(-.5);
+            telemetry.update();
+        }
+          driveStraightclamp(.5,4);
+
+          long startTime2 = System.currentTimeMillis();
+          while (System.currentTimeMillis()<startTime2+500){
+              extentionServo.setPower(-.75);
+              armServo.setPower(-.5);
+          }
+
+
+          extensionMotor.setTargetPosition(-500);
+          extensionMotor.setPower(1);                                               
+          while (extensionMotor.isBusy()) {
+              telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+              armServo.setPower(-.5);
+              telemetry.update();
+          }
+          long startTime3=System.currentTimeMillis();
+          while(System.currentTimeMillis()<startTime3+1000){
+              armServo.setPower(.5);
+          }
+        extensionMotor.setTargetPosition(-2000);
+        extensionMotor.setPower(1);
+        while (extensionMotor.isBusy()) {
+            telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+            armServo.setPower(-.5);
+            telemetry.update();
+        }
+    }
+
+    public void goToSecoundBlock() {
+        if (theCenterBlock) {
+
+        } else if (leftBlock) {
+            left2();
+        } else if (rightBlock) {
+
+        } else {
+
+        }
+    }
+
+    public void center2() {
 
     }
-    public void goToSecoundBlock(){
-        if (theCenterBlock){
 
-        }
-       else if(leftBlock){
-           left2();
-        }
-        else if (rightBlock){
-
-        }
-        else {
-
-        }
+    public void left2() {
+        rotate(2, -6);
+        driveStraight(2, 40);
+        rotate(2, 20);
     }
-    public void center2(){
+
+    public void right2() {
 
     }
-    public void left2(){
-        rotate(2,-6);
-        driveStraight(2,40);
-        rotate(2,20);
-    }
-    public void right2(){
 
+    public void driveStraightclamp(double power, double inches) {
+        resetDriveMotors();
+        setDriveMotorsRunToPosition();
+        int ticks = (int) (TICKS_PER_INCH * -inches);
+
+        frontLeftMotor.setTargetPosition(ticks);     //tells how far (based off of ticks) the robot should go
+        frontRightMotor.setTargetPosition(ticks);
+        backLeftMotor.setTargetPosition(ticks);
+        backRightMotor.setTargetPosition(ticks);
+
+        double drivePower = Range.clip(power, 0, 1);
+
+        // move
+        frontLeftMotor.setPower(-drivePower);
+        frontRightMotor.setPower(drivePower);
+        backLeftMotor.setPower(drivePower);
+        backRightMotor.setPower(-drivePower);
+        extensionMotor.setPower(1);
+
+        // keep looping until motor reach to the target position
+        while (frontLeftMotor.isBusy() && opModeIsActive()) {
+            loopCount++;
+             armServo.setPower(-.5);
+
+            telemetry.addData("Loop is ", loopCount);
+            telemetry.addData("Tgt is ", ticks);
+            telemetry.addData("Left is ", frontLeftMotor.getCurrentPosition());
+            telemetry.addData("Right is ", frontRightMotor.getCurrentPosition());
+            telemetry.addData("Power is ", drivePower);
+            telemetry.update();
+        }
+
+        frontLeftMotor.setPower(0.0);
+        frontRightMotor.setPower(0.0);
     }
 }
