@@ -112,7 +112,7 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             if (this.gamepad2.dpad_up) {
-                extensionMotor.setPower(-0.85);
+                extensionMotor.setPower(-1.0);
             } else if (this.gamepad2.dpad_down) {
                 extensionMotor.setPower(0.75);
             } else {
