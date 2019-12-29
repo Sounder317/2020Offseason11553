@@ -115,11 +115,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(3500);
+            scanSkyStone(1500);
             getSkyStone();
 
 
             goToPlate();
+            pushFoundationIn();
             // getSkyStonePush();
             break;
         }
@@ -271,14 +272,14 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
                     leftBlock = true;
                     theCenterBlock = false;
                     rightBlock = false;
-                    //  return true;
+                      return true;
                 } else if (robotX < 100) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
                     leftBlock = false;
                     rightBlock = false;
-                    // return true;
+                     return true;
                 } else {
                     theCenterBlock = false;
                     leftBlock = false;
@@ -321,7 +322,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.5, 10);
+        driveStraight(.75, 10);
     }
 
     public void getSkyStonePush() {
@@ -336,14 +337,14 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     public void left() {
 
         strafeLeft(.75, 8.25);
-        driveStraight(.5, 13);
+        driveStraight(.75, 13);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
         }
         extentionServo.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 700) {
+        while (System.currentTimeMillis() < startTime2 + 500) {
             armServo.setPower(-.5);
         }
         driveStraight(1, -5.5);
@@ -386,12 +387,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void goToPlate() {
 
-        rotate(.5, -13.612);
+        rotate(.75, -13.612);
         driveStraight(1, 56.5);
         long startTime = System.currentTimeMillis();
 
 
-        rotate(.5, 13.62);
+        rotate(.75, 13.62);
         extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -405,7 +406,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             armServo.setPower(-.5);
             telemetry.update();
         }
-          driveStraightclamp(.5,4);
+          driveStraight(.5,4);
 
           long startTime2 = System.currentTimeMillis();
           while (System.currentTimeMillis()<startTime2+500){
@@ -477,12 +478,11 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         frontRightMotor.setPower(drivePower);
         backLeftMotor.setPower(drivePower);
         backRightMotor.setPower(-drivePower);
-        extensionMotor.setPower(1);
 
         // keep looping until motor reach to the target position
         while (frontLeftMotor.isBusy() && opModeIsActive()) {
             loopCount++;
-             armServo.setPower(-.5);
+
 
             telemetry.addData("Loop is ", loopCount);
             telemetry.addData("Tgt is ", ticks);
@@ -495,4 +495,34 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         frontLeftMotor.setPower(0.0);
         frontRightMotor.setPower(0.0);
     }
+    public void pushFoundationIn(){
+
+
+        //grabbing foundation using servo
+
+        //move forward to hit foundation
+        driveStraight(0.25, 3 );
+
+        //grab foundation
+        grabFoundation();
+sleep(200);
+
+
+        //rotate to put foundation in base
+        rotate(.75,-12);
+
+        //move back 22 inches
+        driveStraight(0.5, -15 );
+
+        //rotate to put foundation in base
+        rotate(1,-16);
+
+        releaseFoundation();
+
+        //align foundation to the wall
+        driveStraight(.75, 27.5 );
+
+
+    }
+
 }
