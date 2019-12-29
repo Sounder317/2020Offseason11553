@@ -52,14 +52,16 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             // right stick steering
             steering = this.gamepad1.left_stick_x;
 
+
+
             // drive formula
             leftPower = motorPower + steering;
             rightPower = motorPower - steering;
 
             // if triggers are held go slower
             if (this.gamepad1.left_trigger > 0){
-                rightPower = rightPower / 3.0;
-                leftPower = leftPower / 3.0;
+                rightPower = rightPower / 5.0;
+                leftPower = leftPower / 5.0;
             }
             else if (this.gamepad1.right_trigger > 0) {
                 rightPower = rightPower / 2.0;
@@ -75,8 +77,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             // make sure we dont make the power too low/high
-            leftPower = Range.clip(leftPower, -1, 1.5);
-            rightPower = Range.clip(rightPower, -1, 1.5);
+            leftPower = Range.clip(leftPower, -1, 1.0);
+            rightPower = Range.clip(rightPower, -1, 1.0);
 
             frontLeftMotor.setPower(-rightPower);
             backLeftMotor.setPower(-rightPower);
