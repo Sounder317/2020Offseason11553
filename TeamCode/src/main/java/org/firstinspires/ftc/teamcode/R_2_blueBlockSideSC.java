@@ -115,13 +115,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(1500);
+            scanSkyStone(1000);
             getSkyStone();
 
 
             goToPlate();
             pushFoundationIn();
-            // getSkyStonePush();
             break;
         }
 
@@ -319,6 +318,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void getToPosition() {
         long startTime = System.currentTimeMillis();
+        releaseFoundation();
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
@@ -336,7 +336,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void left() {
 
-        strafeLeft(.75, 8.25);
+        strafeLeft(2, 8.25);
         driveStraight(.75, 13);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
@@ -347,7 +347,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime2 + 500) {
             armServo.setPower(-.5);
         }
-        driveStraight(1, -5.5);
+        driveStraight(2, -5.5);
 
     }
 
@@ -363,78 +363,92 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime2 + 500) {
             armServo.setPower(-.5);
         }
-        driveStraight(1, -14);
+        driveStraight(1, -5.5);
         strafeLeft(.75, 13.25);
     }
 
     public void center() {
         //raiseArm(-1,1);
-        driveStraight(.5, 13);
+        driveStraight(.75, 11.5);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
         }
         extentionServo.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 1000) {
+        while (System.currentTimeMillis() < startTime2 + 900) {
             armServo.setPower(-.5);
 
 
         }
-        driveStraight(2, -13);
-        strafeRight(2, 8.25);
+        driveStraight(2, -6.5);
     }
 
     public void goToPlate() {
 
         rotate(.75, -13.612);
-        driveStraight(1, 56.5);
-        long startTime = System.currentTimeMillis();
-
-
-        rotate(.75, 13.62);
-        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        int extensionMotorPosition = extensionMotor.getCurrentPosition();
-        telemetry.addData("extention position", extensionMotorPosition);
-        extensionMotor.setTargetPosition(-2000);
-        extensionMotor.setPower(1);
-        while (extensionMotor.isBusy()) {
-            telemetry.addData("motor is", extensionMotor.getCurrentPosition());
-            armServo.setPower(-.5);
-            telemetry.update();
+        if (theCenterBlock) {
+            driveStraight(1, 60);
         }
-          driveStraight(.5,4);
-
-          long startTime2 = System.currentTimeMillis();
-          while (System.currentTimeMillis()<startTime2+500){
-              extentionServo.setPower(-.75);
-              armServo.setPower(-.5);
-          }
-
-
-          extensionMotor.setTargetPosition(-500);
-          extensionMotor.setPower(1);                                               
-          while (extensionMotor.isBusy()) {
-              telemetry.addData("motor is", extensionMotor.getCurrentPosition());
-              armServo.setPower(-.5);
-              telemetry.update();
-          }
-          long startTime3=System.currentTimeMillis();
-          while(System.currentTimeMillis()<startTime3+1000){
-              armServo.setPower(.5);
-          }
-        extensionMotor.setTargetPosition(-2000);
-        extensionMotor.setPower(1);
-        while (extensionMotor.isBusy()) {
-            telemetry.addData("motor is", extensionMotor.getCurrentPosition());
-            armServo.setPower(-.5);
-            telemetry.update();
+        else if (rightBlock){
+            driveStraight(1,68);
         }
+        else{
+           driveStraight(1,76);
+        }
+            long startTime = System.currentTimeMillis();
+
+
+            rotate(.75, 13.62);
+            //extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            //extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            //int extensionMotorPosition = extensionMotor.getCurrentPosition();
+            //telemetry.addData("extention position", extensionMotorPosition);
+            //extensionMotor.setTargetPosition(-2000);
+            //extensionMotor.setPower(1);
+            //while (extensionMotor.getCurrentPosition()>-1990) {
+            //  telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+            //armServo.setPower(-.5);
+            // telemetry.update();
+            //}
+            long extentionTime = System.currentTimeMillis();
+            while (System.currentTimeMillis() < extentionTime + 150) {
+                extensionMotor.setPower(-2);
+            }
+            driveStraight(.75, 4);
+
+            long startTime2 = System.currentTimeMillis();
+            while (System.currentTimeMillis() < startTime2 + 500) {
+                extentionServo.setPower(-.75);
+                armServo.setPower(-.5);
+            }
+
+
+            // extensionMotor.setTargetPosition(-500);
+            // extensionMotor.setPower(1);
+            // while (extensionMotor.getCurrentPosition()<-490) {
+            //   telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+            // armServo.setPower(-.5);
+            //telemetry.update();
+            //}
+            long extentionTime2 = System.currentTimeMillis();
+            while (System.currentTimeMillis() < extentionTime2 + 300) {
+                extensionMotor.setPower(2);
+            }
+            extensionMotor.setPower(0);
+            long startTime3 = System.currentTimeMillis();
+            while (System.currentTimeMillis() < startTime3 + 500) {
+                armServo.setPower(.5);
+            }
+            long extentionTime3 = System.currentTimeMillis();
+            while (System.currentTimeMillis() < extentionTime3 + 200) {
+                extensionMotor.setPower(-2);
+            }
+            extensionMotor.setPower(0);
+
     }
-
     public void goToSecoundBlock() {
         if (theCenterBlock) {
 
@@ -498,21 +512,18 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     public void pushFoundationIn(){
 
 
-        //grabbing foundation using servo
-
-        //move forward to hit foundation
         driveStraight(0.25, 3 );
 
         //grab foundation
         grabFoundation();
-sleep(200);
 
+        sleep(300);
 
         //rotate to put foundation in base
-        rotate(.75,-12);
+        rotate(.5,-12);
 
         //move back 22 inches
-        driveStraight(0.5, -15 );
+        driveStraight(0.25, -15 );
 
         //rotate to put foundation in base
         rotate(1,-16);
@@ -520,7 +531,8 @@ sleep(200);
         releaseFoundation();
 
         //align foundation to the wall
-        driveStraight(.75, 27.5 );
+        driveStraight(0.25, 27.5 );
+
 
 
     }
