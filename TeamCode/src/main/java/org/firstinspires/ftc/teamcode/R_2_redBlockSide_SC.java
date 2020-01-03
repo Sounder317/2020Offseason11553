@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -19,11 +20,12 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGR
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-import com.qualcomm.robotcore.util.Range;
+
 //look angle 1 and a qaurter
-//TODO extend R_2_OPMode instead of R2_skyStoneClass?
-@Autonomous(name="R_2_blueBlockSideSC", group="zzz")
-public class R_2_blueBlockSideSC extends R_2_OpMode {
+
+@Autonomous(name="R_2_redBlockSide_SC", group="zzz")
+public class R_2_redBlockSide_SC extends R_2_OpMode
+{
     //TODO move some of these constants to setupVuforia() as they are needed only in setupVuforia()
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false;
@@ -43,9 +45,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     public boolean leftBlock = false;
     public boolean rightBlock = false;
     public boolean theCenterBlock = false;
-    private float phoneXRotate = 0;
-    private float phoneYRotate = 0;
-    private float phoneZRotate = 0;
+    private float phoneXRotate    = 0;
+    private float phoneYRotate    = 0;
+    private float phoneZRotate    = 0;
 
     //Newly added Vuforia related Members for the simplified program
     private VuforiaLocalizer.Parameters parameters;
@@ -103,8 +105,6 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extensionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // rightArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //rightArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //leftArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -115,12 +115,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(1000);
+            scanSkyStone(1500);
             getSkyStone();
 
 
             goToPlate();
-            pushFoundationIn();
+            // getSkyStonePush();
             break;
         }
 
@@ -195,9 +195,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         // TODO - IMPORTANT - Set these values correctly
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT = 6.5f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        final float CAMERA_FORWARD_DISPLACEMENT  = 6.5f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
         final float CAMERA_VERTICAL_DISPLACEMENT = 12.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT = 5.0f * mmPerInch;    // eg: Camera is ON the robot's center line
+        final float CAMERA_LEFT_DISPLACEMENT     = 5.0f * mmPerInch;    // eg: Camera is ON the robot's center line
 
         // Set phone location on robot
         //Change 7 - Order YZX is changed to XYZ
@@ -256,7 +256,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
             if (listener.isVisible()) {
                 telemetry.addData("Target", "VISIBLE");
-                telemetry.addData("robotX is ", robotX);
+                telemetry.addData("robotX is ", robotX );
                 telemetry.addData("robotY is ", robotY);
                 telemetry.addData("targetX is ", targetX);
                 telemetry.addData("targetY is ", targetX);
@@ -265,25 +265,26 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX > 100) {
-                    telemetry.addData("REACHING LEFT", "TARGET");
+                if (robotX < 100){
+                    telemetry.addData("REACHING RIGHT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
-                    theCenterBlock = false;
-                    rightBlock = false;
-                      return true;
-                } else if (robotX < 100) {
+                    theCenterBlock=false;
+                    rightBlock=false;
+                   return true;
+                } else if (robotX > 100) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
-                    leftBlock = false;
-                    rightBlock = false;
-                     return true;
-                } else {
-                    theCenterBlock = false;
-                    leftBlock = false;
-                    rightBlock = true;
-                    telemetry.addData("Reaching_Right", "TARGET");
+                    leftBlock=false;
+                    rightBlock=false;
+                   return true;
+                }
+                else{
+                    theCenterBlock=false;
+                    leftBlock=false;
+                    rightBlock=true;
+                    telemetry.addData("Reaching_Left","TARGET");
                     telemetry.update();
 
                 }
@@ -291,14 +292,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
             }
 
-        }
-        return false;
+        } return false;
     }
-
-    // Formats a matrix into a readable stringprivate
+        // Formats a matrix into a readable stringprivate
     String formatMatrix(OpenGLMatrix matrix) {
-        return matrix.formatAsTransform();
-    }
+            return matrix.formatAsTransform();
+        }
 
 
     public void getSkyStone() {
@@ -306,23 +305,24 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         // TODO change the values that we are comparing as X,Y and Z are relative to origin( starting point in this case)
 
 
-        if (theCenterBlock) {
-            center();
-        } else if (leftBlock) {
-            left();
-        } else {
-            right();
-        }
+          if (theCenterBlock){
+              center();
+          }
+          else if (leftBlock){
+             left();
+          }
+          else {
+              right();
+          }
 
     }
 
     public void getToPosition() {
         long startTime = System.currentTimeMillis();
-        releaseFoundation();
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.75, 10);
+        driveStraight(.75, 11.5);
     }
 
     public void getSkyStonePush() {
@@ -334,26 +334,25 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         driveStraight(2, 16);
     }
 
-    public void left() {
+    public void center() {
 
-        strafeLeft(2, 8.25);
-        driveStraight(.75, 13);
+        strafeLeft(.75, 8.25);
+        driveStraight(.5, 13);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
         }
         extentionServo.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 500) {
+        while (System.currentTimeMillis() < startTime2 + 700) {
             armServo.setPower(-.5);
         }
-        driveStraight(2, -5.5);
+        driveStraight(1, -6);
 
     }
-
     public void right() {
-        strafeRight(.75, 7.5);
-        driveStraight(.5, 10.5);
+        strafeLeft(.75, 14);
+        driveStraight(.5, 16);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -364,28 +363,29 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             armServo.setPower(-.5);
         }
         driveStraight(1, -6);
+
     }
 
-    public void center() {
+    public void left() {
         //raiseArm(-1,1);
-        driveStraight(.75, 11.5);
+        driveStraight(.5, 13);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
         }
         extentionServo.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 900) {
+        while (System.currentTimeMillis() < startTime2 + 1000) {
             armServo.setPower(-.5);
 
 
         }
-        driveStraight(2, -6);
+        driveStraight(2, -5.5);
     }
 
     public void goToPlate() {
 
-        rotate(.5, -14.1);
+        rotate(.5, 14.1);
         if (theCenterBlock) {
             driveStraight(1, 67);
         }
@@ -393,60 +393,60 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             driveStraight(1,61);
         }
         else{
-           driveStraight(1,74.6);
+            driveStraight(1,74.6);
         }
-            long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
 
 
-            rotate(.75, 13.62);
-            //extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rotate(.75, -13.62);
+        //extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-           // extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            //int extensionMotorPosition = extensionMotor.getCurrentPosition();
-            //telemetry.addData("extention position", extensionMotorPosition);
-           // extensionMotor.setTargetPosition(-2000);
-            //extensionMotor.setPower(1);
-            //while (extensionMotor.getCurrentPosition()>-1990) {
-             //   telemetry.addData("motor is", extensionMotor.getCurrentPosition());
-            //armServo.setPower(-.5);
-            // telemetry.update();
-            //}
-            long extentionTime = System.currentTimeMillis();
-            while (System.currentTimeMillis() < extentionTime + 150) {
-                extensionMotor.setPower(-2);
-            }
+        //int extensionMotorPosition = extensionMotor.getCurrentPosition();
+        //telemetry.addData("extention position", extensionMotorPosition);
+        // extensionMotor.setTargetPosition(-2000);
+        //extensionMotor.setPower(1);
+        //while (extensionMotor.getCurrentPosition()>-1990) {
+        //   telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+        //armServo.setPower(-.5);
+        // telemetry.update();
+        //}
+        long extentionTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() < extentionTime + 150) {
+            extensionMotor.setPower(-2);
+        }
 
-            driveStraight(.75, 4);
-            extensionMotor.setPower(0);
-            long startTime2 = System.currentTimeMillis();
-            while (System.currentTimeMillis() < startTime2 + 1000) {
-                extentionServo.setPower(-.75);
-                armServo.setPower(-.5);
-            }
-            extentionServo.setPower(0);
+        driveStraight(.75, 6);
+        extensionMotor.setPower(0);
+        long startTime2 = System.currentTimeMillis();
+        while (System.currentTimeMillis() < startTime2 + 1300) {
+            extentionServo.setPower(-.75);
+            armServo.setPower(-.5);
+        }
+        extentionServo.setPower(0);
 
-            // extensionMotor.setTargetPosition(-500);
-            // extensionMotor.setPower(1);
-            // while (extensionMotor.getCurrentPosition()<-490) {
-            //   telemetry.addData("motor is", extensionMotor.getCurrentPosition());
-            // armServo.setPower(-.5);
-            //telemetry.update();
-            //}
-           long extentionTime2 = System.currentTimeMillis();
-            while (System.currentTimeMillis() < extentionTime2 + 450) {
-                extensionMotor.setPower(2);
-            }
-            extensionMotor.setPower(0);
-            long startTime3 = System.currentTimeMillis();
-            while (System.currentTimeMillis() < startTime3 + 500) {
-                armServo.setPower(.5);
-            }
-            long extentionTime3 = System.currentTimeMillis();
-            while (System.currentTimeMillis() < extentionTime3 + 200) {
-                extensionMotor.setPower(-2);
-            }
-            extensionMotor.setPower(0);
+        // extensionMotor.setTargetPosition(-500);
+        // extensionMotor.setPower(1);
+        // while (extensionMotor.getCurrentPosition()<-490) {
+        //   telemetry.addData("motor is", extensionMotor.getCurrentPosition());
+        // armServo.setPower(-.5);
+        //telemetry.update();
+        //}
+        long extentionTime2 = System.currentTimeMillis();
+        while (System.currentTimeMillis() < extentionTime2 + 450) {
+            extensionMotor.setPower(2);
+        }
+        extensionMotor.setPower(0);
+        long startTime3 = System.currentTimeMillis();
+        while (System.currentTimeMillis() < startTime3 + 500) {
+            armServo.setPower(.5);
+        }
+        long extentionTime3 = System.currentTimeMillis();
+        while (System.currentTimeMillis() < extentionTime3 + 200) {
+            extensionMotor.setPower(-2);
+        }
+        extensionMotor.setPower(0);
 
     }
     public void goToSecoundBlock() {
@@ -536,7 +536,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         releaseFoundation();
 
         //align foundation to the wall
-     strafeRight(2,30);
+        strafeRight(2,30);
 
 
 
