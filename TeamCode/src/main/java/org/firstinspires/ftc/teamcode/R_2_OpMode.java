@@ -35,6 +35,7 @@ public abstract class R_2_OpMode extends LinearOpMode
     protected Servo foundationServo1;
     protected Servo foundationServo2;
     protected Servo push2Servo;
+    protected Servo swivelServo;
 
     protected int loopCount = 0;                // counter for how long opMode has run
     protected boolean slowMode = false;         // whether to be in slow or precise mode
@@ -65,6 +66,7 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         foundationServo1 = hardwareMap.get(Servo.class, "foundationServo1");
         foundationServo2 = hardwareMap.get(Servo.class, "foundationServo2");
+        swivelServo= hardwareMap.get(Servo.class,"swivelServo");
         foundationServo2.setDirection(Servo.Direction.REVERSE);
 
         push2Servo= hardwareMap.get(Servo.class, "push2Servo");

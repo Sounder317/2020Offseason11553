@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 import com.vuforia.CameraDevice;
-
+import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -538,7 +538,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         //align foundation to the wall
         driveStraight(0.25, 27.5 );
 
-
+        driveStraight(1,-50);
 
     }
 

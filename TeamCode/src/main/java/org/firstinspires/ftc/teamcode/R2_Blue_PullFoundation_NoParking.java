@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="R2_Blue_PullFoundation", group="zzz")
+@Autonomous(name="R2_Blue_PullFoundationNoParking", group="zzz")
 public class R2_Blue_PullFoundation_NoParking extends R_2_OpMode
 {
     @Override
