@@ -517,7 +517,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         //grabbing foundation using servo
 
         //move forward to hit foundation
-        driveStraight(0.75, 3 );
+        driveStraight(0.25, 3 );
 
         //grab foundation
         grabFoundation();
@@ -525,18 +525,18 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         sleep(1000);
 
         //rotate to put foundation in base
-
+        rotate(.5,12);
 
         //move back 22 inches
-        driveStraight(0.75, -35 );
+        driveStraight(0.25, 15 );
 
         //rotate to put foundation in base
-
+        rotate(1,-16);
 
         releaseFoundation();
 
         //align foundation to the wall
-        strafeRight(2,30);
+        driveStraight(0.25, 27.5 );
 
 
 
