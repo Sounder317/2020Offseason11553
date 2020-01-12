@@ -26,6 +26,8 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
     public void runOpMode() {
         initRobot(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+
+
         while (!opModeIsActive()) {
             telemetry.addData("Status", "Initialized");
             telemetry.update();
@@ -138,7 +140,10 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             if (this.gamepad1.y) {
                 foundationServo1.setPosition(1);
                 foundationServo2.setDirection(Servo.Direction.REVERSE);
-                foundationServo2.setPosition(1);
+                foundationServo2.setPosition(1.5);
+            }
+            if (this.gamepad2.a){
+                swivelServo.setPosition(.5);
             }
             if (this.gamepad2.right_trigger>0){
                 double swivelPosition= swivelServo.getPosition()+-.09;
