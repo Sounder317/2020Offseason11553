@@ -115,7 +115,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(1000);
+            scanSkyStone(1500);
             getSkyStone();
 
 
@@ -322,7 +322,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.75, 10);
+        driveStraight(.75, 9);
     }
 
     public void getSkyStonePush() {
@@ -380,6 +380,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
 
         }
+        armServo.setPower(-.5);
         driveStraight(2, -6);
     }
 
@@ -425,7 +426,6 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
                 armServo.setPower(-.5);
             }
             extentionServo.setPower(0);
-
             // extensionMotor.setTargetPosition(-500);
             // extensionMotor.setPower(1);
             // while (extensionMotor.getCurrentPosition()<-490) {
