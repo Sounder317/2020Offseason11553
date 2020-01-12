@@ -371,7 +371,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         driveStraight(.5, 13);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
-            extentionServo.setPower(-.75);
+            extentionServo.setPower(-.5);
         }
         extentionServo.setPower(0);
         long startTime2 = System.currentTimeMillis();
@@ -395,23 +395,11 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         else{
             driveStraight(1,74.6);
         }
-        long startTime = System.currentTimeMillis();
+
 
 
         rotate(.75, -13.62);
-        //extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        //int extensionMotorPosition = extensionMotor.getCurrentPosition();
-        //telemetry.addData("extention position", extensionMotorPosition);
-        // extensionMotor.setTargetPosition(-2000);
-        //extensionMotor.setPower(1);
-        //while (extensionMotor.getCurrentPosition()>-1990) {
-        //   telemetry.addData("motor is", extensionMotor.getCurrentPosition());
-        //armServo.setPower(-.5);
-        // telemetry.update();
-        //}
         long extentionTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < extentionTime + 150) {
             extensionMotor.setPower(-2);
