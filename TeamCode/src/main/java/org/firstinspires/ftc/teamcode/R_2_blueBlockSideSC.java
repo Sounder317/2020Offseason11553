@@ -539,7 +539,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         driveStraight(0.25, 27.5 );
 
 
-
+        driveStraight(1,40);
     }
 
 }

@@ -140,6 +140,25 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
                 foundationServo2.setDirection(Servo.Direction.REVERSE);
                 foundationServo2.setPosition(1);
             }
+            if (this.gamepad2.right_trigger>0){
+                double swivelPosition= swivelServo.getPosition()+-.09;
+                sleep(200);
+                swivelServo.setPosition(swivelPosition);
+                sleep(100);
+            }
+            else if(this.gamepad2.left_trigger>0){
+                double swivelPosition2= swivelServo.getPosition()+.09;
+                sleep(200);
+                swivelServo.setPosition(swivelPosition2);
+                sleep(100);
+            }
+            else if(this.gamepad2.a){
+                swivelServo.setPosition(1);
+            }
+            else{
+                telemetry.addData("swivel position", swivelServo.getPosition());
+                telemetry.update();
+            }
 
             telemetry.addData("Left Front is ", frontLeftMotor.getCurrentPosition());
             telemetry.addData("Right Front is ", frontRightMotor.getCurrentPosition());
