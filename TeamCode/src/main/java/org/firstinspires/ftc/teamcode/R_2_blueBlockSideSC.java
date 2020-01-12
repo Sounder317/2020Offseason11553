@@ -396,7 +396,10 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         else{
            driveStraight(1,74.6);
         }
-            long startTime = System.currentTimeMillis();
+            long startTime=System.currentTimeMillis();
+        while (startTime+100<System.currentTimeMillis()){
+            armServo.setPower(.5);
+        }
 
 
             rotate(.75, 13.62);
@@ -539,7 +542,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         driveStraight(0.25, 27.5 );
 
 
-        driveStraight(1,40);
+        driveStraight(1,-20);
+        strafeRight(1,-8);
+        driveStraight(1,-20);
     }
 
 }

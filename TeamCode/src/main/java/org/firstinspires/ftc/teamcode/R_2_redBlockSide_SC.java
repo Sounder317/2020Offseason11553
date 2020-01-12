@@ -121,6 +121,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
             goToPlate();
             // getSkyStonePush();
+            grabFoundation();
             break;
         }
 
@@ -526,7 +527,9 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         //align foundation to the wall
         driveStraight(0.25, 27.5 );
 
-        driveStraight(1,-50);
+        driveStraight(1,-20);
+        strafeLeft(1,5);
+        driveStraight(1,-20);
 
     }
 
