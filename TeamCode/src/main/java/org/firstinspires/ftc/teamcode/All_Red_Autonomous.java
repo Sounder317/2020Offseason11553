@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="All_Blue_Autonomous", group="zzz")
-public class All_Blue_Autonomous extends R_2_OpMode
+@Autonomous(name="All_Red_Autonomous", group="zzz")
+public class All_Red_Autonomous extends R_2_OpMode
 {
     @Override
     public void runOpMode() {
@@ -58,13 +58,13 @@ public class All_Blue_Autonomous extends R_2_OpMode
         sleep(1000);
 
         //rotate to put foundation in base
-        rotate(.5,-12);
+        rotate(.5,12);
 
         //move back 22 inches
         driveStraight(0.25, -15 );
 
         //rotate to put foundation in base
-        rotate(1,-16);
+        rotate(1,16);
 
         releaseFoundation();
 
