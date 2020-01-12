@@ -132,15 +132,15 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
             }
 
             if (this.gamepad1.b){
-                foundationServo1.setPosition(.3);
+                foundationServo1.setPosition(-.5);
                 foundationServo2.setDirection(Servo.Direction.REVERSE);
-                foundationServo2.setPosition(.3);
+                foundationServo2.setPosition(-.5);
             }
 
             if (this.gamepad1.y) {
                 foundationServo1.setPosition(1);
                 foundationServo2.setDirection(Servo.Direction.REVERSE);
-                foundationServo2.setPosition(1.5);
+                foundationServo2.setPosition(1);
             }
             if (this.gamepad2.a){
                 swivelServo.setPosition(.5);
