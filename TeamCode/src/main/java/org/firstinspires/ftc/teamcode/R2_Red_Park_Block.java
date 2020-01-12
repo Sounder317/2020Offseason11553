@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="R2_Blue_Park", group="zzz")
-public class R2_Blue_Park extends R_2_OpMode
+@Autonomous(name="R2_Red_Park_Block", group="zzz")
+public class R2_Red_Park_Block extends R_2_OpMode
 {
     @Override
     public void runOpMode() {
@@ -38,6 +38,7 @@ public class R2_Blue_Park extends R_2_OpMode
 
             //move left for parking
             sleep(25000);
+            driveStraight(.5,20);
             strafeRight(.5, 20);
 
             break;
