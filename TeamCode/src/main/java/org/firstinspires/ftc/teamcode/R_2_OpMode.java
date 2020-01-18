@@ -23,8 +23,8 @@ public abstract class R_2_OpMode extends LinearOpMode
     protected DcMotor frontRightMotor;
     protected DcMotor backLeftMotor;
     protected DcMotor backRightMotor;
-    protected DcMotor leftArmMotor;
-    protected DcMotor rightArmMotor;
+   // protected DcMotor leftArmMotor;
+    //protected DcMotor rightArmMotor;
     protected DcMotor extensionMotor;
 
     protected CRServo armServo;
@@ -55,8 +55,8 @@ public abstract class R_2_OpMode extends LinearOpMode
         backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
         backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
 
-        leftArmMotor = hardwareMap.get(DcMotor.class, "leftArmMotor");
-        rightArmMotor = hardwareMap.get(DcMotor.class, "rightArmMotor");
+      //  leftArmMotor = hardwareMap.get(DcMotor.class, "leftArmMotor");
+       // rightArmMotor = hardwareMap.get(DcMotor.class, "rightArmMotor");
 
         extensionMotor = hardwareMap.get(DcMotor.class, "extensionMotor");
 
@@ -79,11 +79,11 @@ public abstract class R_2_OpMode extends LinearOpMode
 
         extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftArmMotor.setPower(0.0);
-        rightArmMotor.setPower(0.0);
+        //leftArmMotor.setPower(0.0);
+        //rightArmMotor.setPower(0.0);
 
         resetDriveMotors();
-        resetArmMotors();
+        //resetArmMotors();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -268,18 +268,18 @@ public abstract class R_2_OpMode extends LinearOpMode
         backRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void setArmMotorsMode(DcMotor.RunMode runMode)
-    {
-        leftArmMotor.setMode(runMode);
-        rightArmMotor.setMode(runMode);
-    }
+ //   public void setArmMotorsMode(DcMotor.RunMode runMode)
+   // {
+     //   leftArmMotor.setMode(runMode);
+       // rightArmMotor.setMode(runMode);
+   // }
 
-    public void resetArmMotors()
-    {
-        leftArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+  //  public void resetArmMotors()
+    //{
+      //  leftArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //rightArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-    }
+    //}
 
     public void loadBucket()
     {

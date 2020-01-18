@@ -120,7 +120,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
 
             goToPlate();
-            pushFoundationIn();
+         //   pushFoundationIn();
             break;
         }
 
@@ -322,7 +322,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.75, 9);
+        driveStraight(.75, 8);
     }
 
     public void getSkyStonePush() {
@@ -337,7 +337,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     public void left() {
 
         strafeLeft(2, 8.25);
-        driveStraight(.75, 13);
+        driveStraight(.75, 14);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -353,7 +353,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void right() {
         strafeRight(.75, 7.5);
-        driveStraight(.5, 10.5);
+        driveStraight(.5, 11.5);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -368,14 +368,14 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void center() {
         //raiseArm(-1,1);
-        driveStraight(.75, 11.5);
+        driveStraight(.75, 12);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
         }
         extentionServo.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 900) {
+        while (System.currentTimeMillis() < startTime2 + 1000) {
             armServo.setPower(-.5);
 
 
@@ -421,14 +421,15 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
                 extensionMotor.setPower(-2);
             }
 
-            driveStraight(.75, 4);
-            extensionMotor.setPower(0);
+            driveStraight(.75, 7);
             long startTime2 = System.currentTimeMillis();
             while (System.currentTimeMillis() < startTime2 + 1000) {
                 extentionServo.setPower(-.75);
                 armServo.setPower(-.5);
+                extensionMotor.setPower(0);
             }
             extentionServo.setPower(0);
+
             // extensionMotor.setTargetPosition(-500);
             // extensionMotor.setPower(1);
             // while (extensionMotor.getCurrentPosition()<-490) {

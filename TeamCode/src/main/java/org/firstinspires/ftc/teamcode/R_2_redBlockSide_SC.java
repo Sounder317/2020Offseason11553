@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
+
 import com.vuforia.CameraDevice;
-import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -119,7 +119,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
             getSkyStone();
 
 
-            goToPlate();
+          //  goToPlate();
             // getSkyStonePush();
             grabFoundation();
             break;
@@ -438,66 +438,9 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         extensionMotor.setPower(0);
 
     }
-    public void goToSecoundBlock() {
-        if (theCenterBlock) {
-
-        } else if (leftBlock) {
-            left2();
-        } else if (rightBlock) {
-
-        } else {
-
-        }
-    }
-
-    public void center2() {
-
-    }
-
-    public void left2() {
-        rotate(2, -6);
-        driveStraight(2, 40);
-        rotate(2, 20);
-    }
-
-    public void right2() {
-
-    }
-
-    public void driveStraightclamp(double power, double inches) {
-        resetDriveMotors();
-        setDriveMotorsRunToPosition();
-        int ticks = (int) (TICKS_PER_INCH * -inches);
-
-        frontLeftMotor.setTargetPosition(ticks);     //tells how far (based off of ticks) the robot should go
-        frontRightMotor.setTargetPosition(ticks);
-        backLeftMotor.setTargetPosition(ticks);
-        backRightMotor.setTargetPosition(ticks);
-
-        double drivePower = Range.clip(power, 0, 1);
-
-        // move
-        frontLeftMotor.setPower(-drivePower);
-        frontRightMotor.setPower(drivePower);
-        backLeftMotor.setPower(drivePower);
-        backRightMotor.setPower(-drivePower);
-
-        // keep looping until motor reach to the target position
-        while (frontLeftMotor.isBusy() && opModeIsActive()) {
-            loopCount++;
 
 
-            telemetry.addData("Loop is ", loopCount);
-            telemetry.addData("Tgt is ", ticks);
-            telemetry.addData("Left is ", frontLeftMotor.getCurrentPosition());
-            telemetry.addData("Right is ", frontRightMotor.getCurrentPosition());
-            telemetry.addData("Power is ", drivePower);
-            telemetry.update();
-        }
 
-        frontLeftMotor.setPower(0.0);
-        frontRightMotor.setPower(0.0);
-    }
     public void pushFoundationIn(){
 
 
