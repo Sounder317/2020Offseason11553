@@ -62,14 +62,17 @@ public class R2_Red_PullFoundation extends R_2_OpMode
             sleep(1000);
 
             //Just move 1 inch forward so that robot won't touch the glass on back side
-            driveStraight(.25, 1 );
+            driveStraight(0.25, 1 );
             sleep(1000);
 
             //Sleep for 5 more seconds
             sleep(5000);
 
             //move left for parking
-            strafeLeft(.5, 40);
+            strafeLeft(0.5, 40);
+
+            //be aligned against the wall
+            driveStraight(0.5, -4 );
 
             break;
         }

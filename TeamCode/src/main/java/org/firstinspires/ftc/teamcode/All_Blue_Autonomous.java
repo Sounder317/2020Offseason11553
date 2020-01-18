@@ -71,6 +71,7 @@ public class All_Blue_Autonomous extends R_2_OpMode
         //align foundation to the wall
         driveStraight(0.25, 27.5 );
 
+        //move back to park
         driveStraight(0.5, -60 );
 
 
