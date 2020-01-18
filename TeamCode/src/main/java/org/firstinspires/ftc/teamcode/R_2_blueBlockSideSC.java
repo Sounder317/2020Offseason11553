@@ -120,7 +120,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
 
             goToPlate();
-         //   pushFoundationIn();
+            pushFoundationIn();
             break;
         }
 
@@ -417,7 +417,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             // telemetry.update();
             //}
             long extentionTime = System.currentTimeMillis();
-            while (System.currentTimeMillis() < extentionTime + 150) {
+            while (System.currentTimeMillis() < extentionTime + 200) {
                 extensionMotor.setPower(-2);
             }
 
