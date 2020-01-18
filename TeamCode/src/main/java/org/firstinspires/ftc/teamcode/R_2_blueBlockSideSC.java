@@ -352,7 +352,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     }
 
     public void right() {
-        strafeRight(.75, 7.5);
+        strafeRight(.5, 7.5);
         driveStraight(.5, 11.5);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
@@ -422,11 +422,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             }
 
             driveStraight(.75, 7);
+            extensionMotor.setPower(0);
             long startTime2 = System.currentTimeMillis();
             while (System.currentTimeMillis() < startTime2 + 1300) {
                 extentionServo.setPower(-.75);
                 armServo.setPower(-.5);
-                extensionMotor.setPower(0);
+
             }
             extentionServo.setPower(0);
 
@@ -544,7 +545,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
 
         driveStraight(1,-20);
-        strafeRight(1,-8);
+        extensionMotor.setPower(2);
+        strafeLeft(1,-8);
+        extensionMotor.setPower(0);
         driveStraight(1,-20);
     }
 
