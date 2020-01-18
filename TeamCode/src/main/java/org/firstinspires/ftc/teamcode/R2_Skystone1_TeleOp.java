@@ -43,7 +43,6 @@ public class R2_Skystone1_TeleOp extends R_2_OpMode {
         while (opModeIsActive()) {
 
             setDriveMotorsMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            setArmMotorsMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             extensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             loopCount++;
