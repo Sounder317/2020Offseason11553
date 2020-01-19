@@ -38,7 +38,8 @@ public class R2_Red_Park_plate extends R_2_OpMode
 
             //move left for parking
             sleep(25000);
-            strafeLeft(.5, -20);
+
+            strafeLeft(.5, 20);
 
             break;
         }

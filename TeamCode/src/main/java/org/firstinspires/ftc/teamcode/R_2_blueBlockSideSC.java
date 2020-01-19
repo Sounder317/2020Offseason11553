@@ -320,7 +320,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.5, 10.25);
+        driveStraight(.5, 10.75);
     }
 
     public void getSkyStonePush() {
@@ -335,7 +335,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     public void left() {
 
         strafeLeft(2, 7);
-        driveStraight(.75, 13.75);
+        driveStraight(.75, 13.25);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -345,13 +345,13 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime2 + 500) {
             armServo.setPower(-.5);
         }
-        driveStraight(2, -5.5);
+        driveStraight(2, -6.75);
 
     }
 
     public void right() {
         strafeRight(.5, 7.5);
-        driveStraight(.5, 11.5);
+        driveStraight(.5, 11);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -361,12 +361,12 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         while (System.currentTimeMillis() < startTime2 + 500) {
             armServo.setPower(-.5);
         }
-        driveStraight(1, -6);
+        driveStraight(1, -6.25);
     }
 
     public void center() {
         //raiseArm(-1,1);
-        driveStraight(.75, 12);
+        driveStraight(.75, 11.5);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -379,7 +379,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
         }
         armServo.setPower(-.5);
-        driveStraight(2, -6);
+        driveStraight(2, -6.25);
     }
 
     public void goToPlate() {
@@ -401,7 +401,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         }
 
 
-            rotate(.75, 13.62);
+            rotate(.75, 14.1);
             //extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
            // extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -499,12 +499,14 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         //grabbing foundation using servo
 
         //move forward to hit foundation
-        driveStraight(0.25, 3 );
+        driveStraight(0.25, 1.5 );
 
         //grab foundation
         grabFoundation();
 
         sleep(1000);
+
+        driveStraight(.5,-6);
 
         //rotate to put foundation in base
         rotate(.5,-12);
@@ -527,7 +529,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             extensionMotor.setPower(2);
         }
         extensionMotor.setPower(0);
-        driveStraight(1,-20);
+        driveStraight(1,-12);
     }
 
 }

@@ -266,14 +266,14 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX < 150){
+                if (robotX < 170){
                     telemetry.addData("REACHING RIGHT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
                     theCenterBlock=false;
                     rightBlock=false;
                     return true;
-                } else if (robotX > 150) {
+                } else if (robotX > 170) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
@@ -393,20 +393,22 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         if (theCenterBlock) {
             rotate(.5, 14.7);
             driveStraight(1, 67);
+            rotate(.5,-14.5);
         }
         else if (leftBlock){
             rotate(.5, 15);
             driveStraight(1,61);
+            rotate(.5,-15);
         }
         else{
             rotate(1,14.5);
             driveStraight(1,74.6);
-
+            rotate(.5,-14.4);
         }
 
 
 
-        rotate(.75, -13.62);
+
 
         long extentionTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < extentionTime + 150) {
@@ -416,7 +418,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         driveStraight(.75, 6);
         extensionMotor.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 1400) {
+        while (System.currentTimeMillis() < startTime2 + 1800) {
             extentionServo.setPower(-.75);
             armServo.setPower(-.5);
 
@@ -486,7 +488,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
 
 
-        driveStraight(1,-33);
+        driveStraight(1,-32);
 
 
 

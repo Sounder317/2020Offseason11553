@@ -389,13 +389,13 @@ public class R_2_redBlockSide_Latest1 extends R2_skyStoneClass
     public void goToPlate() {
 
         rotate(1, 14);
-        driveStraight(1, 33);
+        driveStraight(1, 35);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 750) {
             armServo.setPower(0.5);
         }
 
         extentionServo.setPower(0);
-        driveStraight(2,-13);
+        driveStraight(2,-15);
     }
 }

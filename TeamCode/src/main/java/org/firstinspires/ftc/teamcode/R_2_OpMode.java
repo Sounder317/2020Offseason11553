@@ -300,8 +300,8 @@ public abstract class R_2_OpMode extends LinearOpMode
     public void stopExtension() {extentionServo.setPower(0);}
 
     public void grabFoundation() {
-        foundationServo1.setPosition(.45);
-        foundationServo2.setPosition(.31);
+        foundationServo1.setPosition(.35);
+        foundationServo2.setPosition(.21);
     }
 
     public void releaseFoundation() {
