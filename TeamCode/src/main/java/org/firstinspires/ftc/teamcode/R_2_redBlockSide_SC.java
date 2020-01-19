@@ -115,13 +115,13 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
         while (opModeIsActive()) {
             getToPosition();
-            scanSkyStone(1500);
+            scanSkyStone(2000);
             getSkyStone();
 
 
-          //  goToPlate();
-            // getSkyStonePush();
-            grabFoundation();
+            goToPlate();
+
+            pushFoundationIn();
             break;
         }
 
@@ -266,20 +266,20 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX < 100){
+                if (robotX < 150){
                     telemetry.addData("REACHING RIGHT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
                     theCenterBlock=false;
                     rightBlock=false;
-                   return true;
-                } else if (robotX > 100) {
+                    return true;
+                } else if (robotX > 150) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
                     leftBlock=false;
                     rightBlock=false;
-                   return true;
+                    return true;
                 }
                 else{
                     theCenterBlock=false;
@@ -319,11 +319,12 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
     }
 
     public void getToPosition() {
+        releaseFoundation();
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.75, 11.5);
+        driveStraight(.75, 11);
     }
 
     public void getSkyStonePush() {
@@ -338,7 +339,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
     public void center() {
 
         strafeLeft(.75, 8.25);
-        driveStraight(.5, 13);
+        driveStraight(.5, 12);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -348,12 +349,12 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         while (System.currentTimeMillis() < startTime2 + 700) {
             armServo.setPower(-.5);
         }
-        driveStraight(1, -6);
+        driveStraight(1, -7);
 
     }
     public void right() {
-        strafeLeft(.75, 14);
-        driveStraight(.5, 16);
+        strafeLeft(.75, 13.5);
+        driveStraight(.4, 15);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.75);
@@ -369,7 +370,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
     public void left() {
         //raiseArm(-1,1);
-        driveStraight(.5, 13);
+        driveStraight(.5, 12);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.5);
@@ -381,20 +382,26 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
 
         }
-        driveStraight(2, -5.5);
+        driveStraight(2, -6.5);
     }
 
     public void goToPlate() {
 
-        rotate(.5, 14.1);
+        foundationServo2.setPosition(1);
+
+
         if (theCenterBlock) {
+            rotate(.5, 14.7);
             driveStraight(1, 67);
         }
         else if (leftBlock){
+            rotate(.5, 15);
             driveStraight(1,61);
         }
         else{
+            rotate(1,14.5);
             driveStraight(1,74.6);
+
         }
 
 
@@ -409,9 +416,10 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         driveStraight(.75, 6);
         extensionMotor.setPower(0);
         long startTime2 = System.currentTimeMillis();
-        while (System.currentTimeMillis() < startTime2 + 1300) {
+        while (System.currentTimeMillis() < startTime2 + 1400) {
             extentionServo.setPower(-.75);
             armServo.setPower(-.5);
+
         }
         extentionServo.setPower(0);
 
@@ -452,27 +460,35 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
         driveStraight(0.25, 3 );
 
         //grab foundation
+        driveStraight(0.25, 3 );
+
+        //grab foundation
         grabFoundation();
 
         sleep(1000);
+
+        driveStraight(.5,-4);
 
         //rotate to put foundation in base
         rotate(.5,12);
 
         //move back 22 inches
-        driveStraight(0.25, 15 );
+        driveStraight(0.25, -18 );
 
         //rotate to put foundation in base
-        rotate(1,-16);
+        rotate(1,16);
 
         releaseFoundation();
 
         //align foundation to the wall
-        driveStraight(0.25, 27.5 );
+        strafeLeft(.25,4);
+        driveStraight(0.25, 24.5 );
 
-        driveStraight(1,-20);
-        strafeLeft(1,5);
-        driveStraight(1,-20);
+
+
+        driveStraight(1,-33);
+
+
 
     }
 

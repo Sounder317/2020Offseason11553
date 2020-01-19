@@ -38,7 +38,7 @@ public class R2_Blue_Park_Block extends R_2_OpMode
 
             //move left for parking
             sleep(25000);
-            driveStraight(.5,20);
+
             strafeRight(.5, -20);
 
             break;

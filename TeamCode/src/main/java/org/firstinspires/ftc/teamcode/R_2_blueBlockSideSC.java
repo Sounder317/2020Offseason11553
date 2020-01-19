@@ -117,8 +117,6 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             getToPosition();
             scanSkyStone(2000);
             getSkyStone();
-
-
             goToPlate();
             pushFoundationIn();
             break;
@@ -265,20 +263,20 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
                 telemetry.addData("targetThirdAngle is ", targetThirdAngle);
 
                 //return true; TODO remove this comment
-                if (robotX > 100) {
+                if (robotX > 120) {
                     telemetry.addData("REACHING LEFT", "TARGET");
                     telemetry.update();
                     leftBlock = true;
                     theCenterBlock = false;
                     rightBlock = false;
-                      return true;
-                } else if (robotX < 100) {
+                    return true;
+                } else if (robotX < 120) {
                     telemetry.addData("REACHING _CENTER", "TARGET");
                     telemetry.update();
                     theCenterBlock = true;
                     leftBlock = false;
                     rightBlock = false;
-                     return true;
+                    return true;
                 } else {
                     theCenterBlock = false;
                     leftBlock = false;
@@ -318,11 +316,11 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void getToPosition() {
         long startTime = System.currentTimeMillis();
-        //releaseFoundation();
+        releaseFoundation();
         while (System.currentTimeMillis() < startTime + 500) {
             armServo.setPower(0.5);
         }
-        driveStraight(.5, 8.25);
+        driveStraight(.5, 10.25);
     }
 
     public void getSkyStonePush() {
@@ -336,7 +334,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
 
     public void left() {
 
-        strafeLeft(2, 8);
+        strafeLeft(2, 7);
         driveStraight(.75, 13.75);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
@@ -385,7 +383,8 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
     }
 
     public void goToPlate() {
-
+        foundationServo1.setPosition(1);
+        foundationServo2.setPosition(1);
         rotate(.5, -14.1);
         if (theCenterBlock) {
             driveStraight(1, 67);
@@ -417,14 +416,14 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             // telemetry.update();
             //}
             long extentionTime = System.currentTimeMillis();
-            while (System.currentTimeMillis() < extentionTime + 200) {
-                extensionMotor.setPower(-2);
-            }
+        while (System.currentTimeMillis() < extentionTime + 200) {
+            extensionMotor.setPower(-2);
+        }
 
-            driveStraight(.75, 7);
+            driveStraight(.75, 10);
             extensionMotor.setPower(0);
             long startTime2 = System.currentTimeMillis();
-            while (System.currentTimeMillis() < startTime2 + 1300) {
+            while (System.currentTimeMillis() < startTime2 + 1400) {
                 extentionServo.setPower(-.75);
                 armServo.setPower(-.5);
 
@@ -454,31 +453,9 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             extensionMotor.setPower(0);
 
     }
-    public void goToSecoundBlock() {
-        if (theCenterBlock) {
 
-        } else if (leftBlock) {
-            left2();
-        } else if (rightBlock) {
 
-        } else {
 
-        }
-    }
-
-    public void center2() {
-
-    }
-
-    public void left2() {
-        rotate(2, -6);
-        driveStraight(2, 40);
-        rotate(2, 20);
-    }
-
-    public void right2() {
-
-    }
 
     public void driveStraightclamp(double power, double inches) {
         resetDriveMotors();
@@ -541,12 +518,14 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         releaseFoundation();
 
         //align foundation to the wall
-        driveStraight(0.25, 27.5 );
+        driveStraight(0.25, 24 );
 
 
         driveStraight(1,-20);
-        extensionMotor.setPower(2);
-        strafeLeft(1,-8);
+        long startTime=System.currentTimeMillis();
+        while (startTime+500>System.currentTimeMillis()) {
+            extensionMotor.setPower(2);
+        }
         extensionMotor.setPower(0);
         driveStraight(1,-20);
     }
