@@ -118,7 +118,7 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
             scanSkyStone(2000);
             getSkyStone();
             goToPlate();
-            pushFoundationIn();
+            pullFoudationIN();
             break;
         }
 
@@ -530,6 +530,19 @@ public class R_2_blueBlockSideSC extends R_2_OpMode {
         }
         extensionMotor.setPower(0);
         driveStraight(1,-12);
+    }
+    public void pullFoudationIN(){
+        driveStraight(.5,3);
+        foundationServo1.setPosition(.27);
+        foundationServo2.setPosition(.31);
+        sleep(1000);
+        driveStraight(.1,-37);
+        foundationServo1.setPosition(.8);
+        foundationServo2.setPosition(.83);
+        sleep(500);
+        strafeRight(.5,22);
+        driveStraight(.5,14);
+        strafeRight(.5,9);
     }
 
 }

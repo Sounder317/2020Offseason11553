@@ -121,7 +121,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
             goToPlate();
 
-            pushFoundationIn();
+            pullFoundationIn();
             break;
         }
 
@@ -370,7 +370,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
     public void left() {
         //raiseArm(-1,1);
-        driveStraight(.5, 12);
+        driveStraight(.5, 11.5);
         long startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() < startTime + 1500) {
             extentionServo.setPower(-.5);
@@ -396,7 +396,7 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
             rotate(.5,-14.5);
         }
         else if (leftBlock){
-            rotate(.5, 15);
+            rotate(.5, 14.7);
             driveStraight(1,61);
             rotate(.5,-15);
         }
@@ -492,6 +492,20 @@ public class R_2_redBlockSide_SC extends R_2_OpMode
 
 
 
+    }
+    public void pullFoundationIn(){
+        driveStraight(.5,3);
+        driveStraight(.5,3);
+        foundationServo1.setPosition(.27);
+        foundationServo2.setPosition(.31);
+        sleep(1000);
+        driveStraight(.1,-31);
+        foundationServo1.setPosition(.8);
+        foundationServo2.setPosition(.83);
+        sleep(500);
+        strafeLeft(.5,22);
+        driveStraight(.5,20);
+        strafeLeft(.5,9);
     }
 
 }

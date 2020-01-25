@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="All_Red_Autonomous", group="zzz")
+//@Autonomous(name="All_Red_Autonomous", group="zzz")
 public class All_Red_Autonomous extends R_2_OpMode
 {
     @Override

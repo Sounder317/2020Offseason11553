@@ -53,7 +53,7 @@ public class R2_Blue_PullFoundation extends R_2_OpMode
             sleep(1000);
 
             // beginning of moving back, 30 inches is needed
-            driveStraight(0.25, -31 );
+            driveStraight(0.1, -31 );
             //driveStraight(0.25, -6 );
             sleep(500);
 
